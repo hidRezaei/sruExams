@@ -7,7 +7,7 @@
     <div class="col-div-6">
         <div class="prof-admin">
             <div class="profile">
-                <p>سلام کاربر گرامی خوش آمدید , <span>شما مدیر هستید.</span>
+                <p>سلام کاربر گرامی خوش آمدید , <span>شما دانش آموز هستید.</span>
                     <span style="cursor: pointer;color:#FFFFFF" onclick="logoutUser()">خروج</span>
 
                     <form action="{{route('logout')}}" method="post" id="logout">

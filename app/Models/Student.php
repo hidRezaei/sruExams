@@ -10,6 +10,15 @@ class Student extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
     /*protected $fillable = [
         'name',
         'mobile',

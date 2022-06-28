@@ -28,6 +28,9 @@ return new class extends Migration
             $table->integer('GradeID');
             $table->string('Tel', 15);
             $table->string('Password');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
+
             $table->timestamps();
         });
     }

@@ -7,7 +7,6 @@
 *{
     margin: 0;
     padding: 0;
-
     box-sizing: border-box;
 }
 
@@ -166,7 +165,7 @@ body{
 
 #main .main-content{
     padding: 20px;
-    margin-top: 30px;
+    /*margin-top: 30px;*/
     background:#eeeeee; /*#272c4a;*/
 }
 
