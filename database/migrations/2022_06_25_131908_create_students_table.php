@@ -15,19 +15,21 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('oldSystemID')->nullable();
             $table->string('FName',300);
             $table->string('LName', 300);
-            $table->string('FatherName', 300);
-            $table->integer('GenderID');
-            $table->string('CodeMeli', 10);
-            $table->string('ShSerial', 10);
-            $table->integer('StateID');
-            $table->integer('StateZoneID');
-            $table->integer('SchoolID');
-            $table->integer('BranchID');
-            $table->integer('GradeID');
-            $table->string('Tel', 15);
+            $table->string('FatherName', 300)->nullable();
+            $table->integer('GenderID')->nullable();
+            $table->string('CodeMeli', 10)->unique();
+            $table->string('ShSerial', 10)->nullable();
+            $table->integer('StateID')->nullable();
+            $table->integer('StateZoneID')->nullable();
+            $table->integer('SchoolID')->nullable();
+            $table->integer('BranchID')->nullable();
+            $table->integer('GradeID')->nullable();
+            $table->string('Tel', 15)->nullable();
             $table->string('Password');
+            $table->string('Eamil')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
 

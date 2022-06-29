@@ -57,7 +57,7 @@
                     <div class="card p-4">
                         <div class="card-body">
 
-                            <form action="{{route('login.store')}}" method="post">
+                            <form action="{{route('student.lgStore')}}" method="post">
                                 @csrf
 
                                 <h3 class="fw-bold"> ورود </h3>

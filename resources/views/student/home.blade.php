@@ -9,11 +9,11 @@
 </head>
 <body>
 
-@include('admin.sidebar')
+@include('student.sidebar')
 
 <div id="main">
 
-    @include('admin.head')
+    @include('student.head')
 
     {{--@include('admin.information')--}}
 

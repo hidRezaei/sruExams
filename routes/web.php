@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Student\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,16 @@ Route::get('/admin/dashboard', function () { return view('admin.dashboard');})->
 
 Route::middleware(['auth'])->resource('/admin/student', \App\Http\Controllers\Administrator\StudentController::class)->parameters(['student'=>'id']);
 
+Route::namespace('Student')->prefix('student')->group(function (){
+    Route::get('/',function(){return view ('student.home');})->middleware(['auth:student'])->name('student.home');
+    Route::get('/result',function(){return view ('student.result');})->middleware(['auth:student'])->name('student.result');
+    Route::namespace('Auth')->group(function(){
+        //Route::get('/login',function(){return view ('student.login');})->name('student.login');
+        Route::get('/login',[LoginController::class, 'create'])->name('student.login');
+        Route::post('/login', [LoginController::class, 'store'])->name('student.lgStore');
+        Route::post('logout', [LoginController::class, 'destroy'])->name('student.logout');
+    });
+});
 
 Route::get('/stlogin', function () { return view('student_login');})->name('stlogin');
 require __DIR__.'/auth.php';

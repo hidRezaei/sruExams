@@ -5,13 +5,13 @@
         <span class="icon"><i class="fas fa-eye"></i></span>
         نمایش وب سایت
     </a>
-    <a href="{{route('adminDashboard')}}" class="icon-a">
+    <a href="{{route('student.home')}}" class="icon-a">
         <span class="icon"><i class="fas fa-home"></i></span>
         داشبورد
     </a>
-    <a href="{{route('student.index')}}" class="icon-a">
+    <a href="{{route('student.result')}}" class="icon-a">
         <span class="icon"><i class="fas fa-users"></i></span>
-        دانش آموزان
+        مشاهده نتایج آزمون
     </a>
     <a href="#" class="icon-a">
         <span class="icon"><i class="fas fa-users"></i></span>
