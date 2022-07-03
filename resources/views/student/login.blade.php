@@ -64,7 +64,7 @@
                                 <p class="text-muted">حساب کاربری دانش آموزان</p>
                                 <div class="input-group mb-3">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                    <input type="text" name="email" class="form-control lgnTxt" placeholder="نام کاربری">
+                                    <input type="text" name="NIN" class="form-control lgnTxt" placeholder="نام کاربری">
 
                                 </div>
                                 @error('email')

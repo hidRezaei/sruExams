@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
 class Student extends Authenticatable
@@ -32,6 +33,15 @@ class Student extends Authenticatable
     public function Jalali(){
         return '';//verta($this->created_at)->format('Y/m/d');
     }
+
+    public function getQuestionCount()
+    {
+        $path = 'resultFiles/' . auth('student')->user()->CandidID ;
+        $directories = Storage::Directories($path);
+        //dd($direcssstories);
+        return ($directories);
+    }
+
 
 
 }

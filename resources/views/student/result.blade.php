@@ -4,7 +4,6 @@
     <span class="nav2">
         نتایج
     </span>
-
     <div class="information" >
         <div class="col-div-3">
             <div class="box">
@@ -52,6 +51,22 @@
         </div>
     </div>
 
-    <div style="height: 300px">&nbsp;</div>
+    <div style="min-height: 300px">
+
+        <!--img src="{{ asset('/getAns/1/1.jpg') }}" style="border:1px solid black" width="200" /-->
+        <img src="{{ route('image.displayImage' , ['QN'=>'1', 'filename'=>'1.jpg']) }}" style="border:1px solid black" width="200" />
+
+        @foreach($questionNumber as $question)
+            <p>{{$question}}</p>
+        @endforeach
+
+
+        <p>
+                @php
+                    //echo \App\Http\Controllers\Student\homeController::getQuestionCount();
+                    //echo \App\Http\Controllers\Student\homeController::getAnswerPagesOfQuestion(1);
+
+            @endphp</p>
+    </div>
 
 @endsection
