@@ -14,9 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {return view('welcome');});
+Route::get('/', function () {return abort(404);});
 
 Route::get('/admin', function () { return view('admin.index');})->middleware(['auth'])->name('admin');
 Route::get('/admin/dashboard', function () { return view('admin.dashboard');})->middleware(['auth'])->name('adminDashboard');

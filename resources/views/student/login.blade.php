@@ -93,8 +93,9 @@
                     <div class="card text-white bg-orange py-5 d-md-down-none" style="width:44%">
                         <div class="card-body text-center">
                             <div>
+                                <img src="{{asset('images/logo.png')}}" width="130" />
                                 <h2>سامانه آزمون</h2>
-                                <p>متن توضیحات متن توضیح متن توضیح متن توضیحات متن توضیح متن توضیح متن توضیحات متن توضیح متن توضیح </p>
+                                <p>متن توضیحات متن توضیح  توضیح متن توضیح </p>
                                 <button type="button" class="btn btn-light active mt-3">وارد شوید!</button>
                             </div>
                         </div>

@@ -7,15 +7,15 @@
     </a>
     <a href="{{route('student.home')}}" class="icon-a">
         <span class="icon"><i class="fas fa-home"></i></span>
-        داشبورد
+        خانه
     </a>
     <a href="{{route('student.result')}}" class="icon-a">
         <span class="icon"><i class="fas fa-users"></i></span>
-        مشاهده نتایج آزمون
+        مشاهده پاسخ آزمون
     </a>
     <a href="#" class="icon-a">
         <span class="icon"><i class="fas fa-users"></i></span>
-        کاربران
+        پروفایل
     </a>
     <!--a href="#" class="icon-a">
         <span class="icon"><i class="fas fa-ellipsis-h"></i></span>

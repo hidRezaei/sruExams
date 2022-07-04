@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{asset('/front/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('/front/css/responsive.css')}}">
     <link rel="stylesheet" href="{{asset('/front/css/fontawesome.css')}}">
-    <title>شرکت ساختمانی تاپ لرن</title>
+    <title>سامانه آزمون</title>
 </head>
 
 <body>

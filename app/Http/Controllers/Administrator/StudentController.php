@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administrator;
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -12,8 +13,16 @@ class StudentController extends Controller
 {
     public function index()
     {
+        //$students = Student::all();
+
         $students = Student::paginate(4);
-        //dd($students);
+        /*set_time_limit(360);
+        $students = DB::select('select * from students where id >= ? and id < ?',[0,1000]);
+        //$students = DB::select('select * from students where password like ?',[Hash::make('123456')]);
+        foreach ($students AS $student)
+            DB::update('update Students set password = ? where id = ?',[Hash::make($student->NIN),$student->id]);
+
+        dd(  count($students));*/
         return view('admin.student.index', compact('students'));
     }
 
