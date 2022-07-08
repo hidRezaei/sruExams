@@ -22,8 +22,8 @@ class Exam extends Model
             11 =>'اقتصاد و مدیریت',
             12 =>'تفکر و کارآفرینی',
             13 =>'علوم و نانو فناوری',
-            14 =>'14',
-            15 =>'15'
+            //14 =>'14',
+            //15 =>'15'
         );
     }
 
@@ -44,6 +44,17 @@ class Exam extends Model
         return array_merge(
             array(0 => 'انتخاب کنید'),
             $resultArr /*,
+            array(19 => 'پاسخنامه تستی',
+                20 => 'کارنامه')*/
+        );
+    }
+
+    public function getMessageSubjectOptionsForAdmin()
+    {
+        $tmpArr = self::ExamLessons();
+        return array_merge(
+            array(0 => 'انتخاب کنید'),
+            $tmpArr /*,
             array(19 => 'پاسخنامه تستی',
                 20 => 'کارنامه')*/
         );

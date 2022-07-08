@@ -53,12 +53,13 @@
     </div>
 
     <div style="height: 300px">
-        <p style="line-height: 300%;color:#333333">
+        @foreach($elanats as $elanat)
+            <p style="margin:10px 5px 10px 0 ;padding-right:30px;line-height:200%;color:white;background-color:blue; border-radius: 7px">{{$elanat->Title  }}</p>
+            <span style="color:#777777; margin-right:20px"> تاریخ :  {{ verta($elanat->created_at)->format('H:i  -  Y/m/d ') }}</span>
             <br/>
-            دانش آموزان عزیز جهت ثبت اعتراض یا ارسال پیام، از قسمت پیام ها اقدام نمایید
+            <p style="color:#333333; margin-right:20px">{{ $elanat->Text }}</p>
             <br/>
-            لطفا اعتراض خود را حداکثر به 2 سوال ثبت نمایید
-        </p>
+        @endforeach
 
     </div>
 

@@ -18,14 +18,21 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/', function () {return view('welcome');});
 Route::get('/', function () {return abort(404);});
 
-Route::get('/admin', function () { return view('admin.index');})->middleware(['auth'])->name('admin');
+Route::get('/admin', function () { return view('admin.dashboard');})->middleware(['auth'])->name('admin');
 Route::get('/admin/dashboard', function () { return view('admin.dashboard');})->middleware(['auth'])->name('adminDashboard');
 
 Route::middleware(['auth'])->resource('/admin/student', \App\Http\Controllers\Administrator\StudentController::class)->parameters(['student'=>'id']);
+Route::resource('admin.message',\App\Http\Controllers\Administrator\messageController::class)->parameters(['admin'=>'aid','message'=>'mid'])->middleware(['auth']);
+Route::resource('admin.elanat',\App\Http\Controllers\Administrator\elanatController::class)->parameters(['admin'=>'aid','elanat'=>'eid'])->middleware(['auth']);
+Route::get('/setting',[\App\Http\Controllers\Administrator\settingController::class,'getSetting'])->middleware(['auth'])->name('admin.setting');
+Route::post('/setting',[\App\Http\Controllers\Administrator\settingController::class,'updateSetting'])->middleware(['auth'])->name('admin.setting');
+
+
+
+
 
 Route::namespace('Student')->prefix('student')->group(function (){
-    Route::get('/',function(){return view ('student.home');})->middleware(['auth:student'])->name('student.home');
-    //Route::get('/result',function(){return view ('student.result');})->middleware(['auth:student'])->name('student.result');
+    Route::get('/',[\App\Http\Controllers\Student\homeController::class,'getHomeData'])->middleware(['auth:student'])->name('student.home');
     Route::get('/result',[\App\Http\Controllers\Student\homeController::class,'getResultPageData'])->middleware(['auth:student'])->name('student.result');
 
     Route::get('/profile/{id}',[\App\Http\Controllers\Student\profileController::class,'getStudentData'])->middleware(['auth:student'])->name('student.profile');

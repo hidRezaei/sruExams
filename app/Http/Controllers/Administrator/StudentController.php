@@ -15,7 +15,7 @@ class StudentController extends Controller
     {
         //$students = Student::all();
 
-        $students = Student::paginate(4);
+        $students = Student::paginate(10);
         /*set_time_limit(360);
         $students = DB::select('select * from students where id >= ? and id < ?',[0,1000]);
         //$students = DB::select('select * from students where password like ?',[Hash::make('123456')]);
@@ -70,7 +70,8 @@ class StudentController extends Controller
         {
             $request->validate([
                 //'name'=>'required|string|max:255',
-                'CodeMeli'=> ['required','string','max:10', Rule::unique('students') ->ignore($student->id)],
+                'NIN'=> ['required','string','max:10', Rule::unique('students') ->ignore($student->id)],
+                'CandidID'=> ['required','string','max:10', Rule::unique('students') ->ignore($student->id)],
                 //'password'=>['required','string','min:6', Rule::unique('students')/*->ignore($user->id)*/],
                 //'role'=>'required|max:255'
             ]);
@@ -80,7 +81,9 @@ class StudentController extends Controller
                 'FName'=>$request->FName,
                 'LName'=>$request->LName,
                 'FatherName'=>$request->FatherName,
-                'CodeMeli'=>$request->CodeMeli,
+                'NIN'=>$request->NIN,
+                'CandidID'=>$request->CandidID,
+                'Tel'=>$request->Tel,
                 //'Password'=>Hash::make('111111111'),
             ]);
         }
@@ -88,7 +91,8 @@ class StudentController extends Controller
         {
             $request->validate([
                 //'name'=>'required|string|max:255',
-                'CodeMeli'=> ['required','string','max:10', Rule::unique('students') ->ignore($student->id)],
+                'NIN'=> ['required','string','max:10', Rule::unique('students') ->ignore($student->id)],
+                'CandidID'=> ['required','string','max:10', Rule::unique('students') ->ignore($student->id)],
                 'password'=>['required','string','min:6', Rule::unique('students')/*->ignore($user->id)*/],
                 //'role'=>'required|max:255'
             ]);
@@ -97,13 +101,15 @@ class StudentController extends Controller
                 'FName'=>$request->FName,
                 'LName'=>$request->LName,
                 'FatherName'=>$request->FatherName,
-                'CodeMeli'=>$request->CodeMeli,
+                'NIN'=>$request->NIN,
+                'CandidID'=>$request->CandidID,
+                'Tel'=>$request->Tel,
                 'Password'=>Hash::make($request->password),
             ]);
 
         }
 
-        //$request->session()->flash('update');
+        $request->session()->flash('update');
         return redirect()->route('student.index');
     }
 

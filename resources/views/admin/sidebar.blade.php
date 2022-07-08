@@ -10,18 +10,30 @@
         داشبورد
     </a>
     <a href="{{route('student.index')}}" class="icon-a">
-        <span class="icon"><i class="fas fa-users"></i></span>
+        <span class="icon"><i class="fas fa-school"></i></span>
         دانش آموزان
     </a>
     <a href="#" class="icon-a">
         <span class="icon"><i class="fas fa-users"></i></span>
         کاربران
     </a>
-    <!--a href="#" class="icon-a">
-        <span class="icon"><i class="fas fa-ellipsis-h"></i></span>
-        منوی بالایی
+    <!--a href="" class="icon-a">
+        <span class="icon"><i class="fas fa-users"></i></span>
+        پروفایل
+    </a-->
+    <a href="{{route('admin.message.index',/*auth()->id()*/-10001)}}" class="icon-a">
+        <span class="icon"><i class="fas fa-comment-alt"></i></span>
+        اعتراض ها
     </a>
-    <a href="#" class="icon-a">
+    <a href="{{route('admin.elanat.index',/*auth()->id()*/-10001)}}" class="icon-a">
+        <span class="icon"><i class="fas fa-bell"></i></span>
+          اعلانات
+    </a>
+    <a href="{{route('admin.setting')}}" class="icon-a">
+        <span class="icon"><i class="fas fa-cog"></i></span>
+        تنظیمات
+    </a>
+    <!--a href="#" class="icon-a">
         <span class="icon"><i class="fas fa-laptop-house"></i></span>
         خانه
     </a>

@@ -19,7 +19,7 @@
     </a>
     <a href="{{route('student.message.index',auth('student')->id())}}" class="icon-a">
         <span class="icon"><i class="fas fa-comment-alt"></i></span>
-        پیام ها
+        اعتراض ها
     </a>
     <!--a href="#" class="icon-a">
         <span class="icon"><i class="fas fa-laptop-house"></i></span>

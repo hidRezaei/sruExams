@@ -1,9 +1,9 @@
-@extends('student.master')
+@extends('admin.index')
 
 @section('content')
     <div class="dynamic-content">
         <h2>اعتراض ها</h2>
-        <a href="{{route('student.message.create',auth('student')->id())}}" ><button type="button" class="btn btn-primary btn-lg">جدید</button></a>
+        <a href="{{route('admin.message.create',-10001)}}" ><button type="button" class="btn btn-primary btn-lg">جدید</button></a>
         <table class="mb-5">
             <tbody>
             <tr>
@@ -12,32 +12,28 @@
                 <th>گیرنده</th>
                 <th>موضوع</th>
                 <th>تاریخ</th>
-                <th>مشاهده</th>
-                <th>ویرایش</th>
-                <th>حذف</th>
-                <!--th>ویرایش</th>
-                <th>حذف</th-->
+                <th>جزئیات</th>
+                <!--th>حذف</th-->
             </tr>
 
             @php $counter =1 @endphp
             @foreach($messages as $message)
                 <tr>
                     <td>{{ $counter++}}</td>
-                    <td>{{$message->SenderTitle()}}</td>
-                    <td>{{$message->ReceiverTitle()}}</td>
-                    <td> {{$message->Subject2}}</td>
-                    <td>{{$message->Jalali()}}</td>
-                    <td><input class="form-check-input" type="checkbox" @if($message->View)  {{'checked'}} @endif /></td>
-                    <td><a href="{{route('student.message.edit', ['sid'=> auth('student')->id(),'mid'=>$message->id] )}}" class="text-blue text-decoration-none"> <i class="fas fa-edit"></i></a></td>
-                    <td>
-                        <a href="{{route('student.message.destroy',['sid'=> auth('student')->id(),'mid'=>$message->id])}}" class="text-decoration-none text-danger" onclick="destroyMsg(event, {{$message->id}})">حذف</a>
-                        <form action="{{route('student.message.destroy', ['sid'=> auth('student')->id(),'mid'=>$message->id])}}" method="post" id="delete-msg-{{$message->id}}">
+                    <td>{{$message->Sender}}</td>
+                    <td>{{$message->Receiver}}</td>
+                    <td>{{$message->Subject2}}</td>
+                    <td>{{ verta($message->created_at)->format('H:i  -  Y/m/d ')  }}</td>
+                    <td><a href="{{route('admin.message.edit', ['aid'=> -10001,'mid'=>$message->id] )}}" class="text-blue text-decoration-none"> <i class="fas fa-edit"></i></a></td>
+                    <!--td>
+                        <a href="{{route('admin.message.destroy',['aid'=> -10001,'mid'=>$message->id])}}" class="text-decoration-none text-danger" onclick="destroyMsg(event, {{$message->id}})">حذف</a>
+                        <form action="{{route('admin.message.destroy', ['aid'=> -10001,'mid'=>$message->id])}}" method="post" id="delete-msg-{{$message->id}}">
                             @csrf
                             @method('delete')
                         </form>
 
 
-                    </td>
+                    </td-->
                 </tr>
             @endforeach
 

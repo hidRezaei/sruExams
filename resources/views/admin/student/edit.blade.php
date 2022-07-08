@@ -28,9 +28,23 @@
             @enderror
         </div>
         <div class="form-group">
-            {!! Form::label('CodeMeli', 'کد ملی') !!}
-            {!! Form::text('CodeMeli',old('CodeMeli') ,['placeholder'=>'ده رقمی بدون خط تیره']) !!}
-            @error('CodeMeli')
+            {!! Form::label('NIN', 'کد ملی') !!}
+            {!! Form::text('NIN',old('NIN') ,['placeholder'=>'ده رقمی بدون خط تیره']) !!}
+            @error('NIN')
+            <p class="text-danger my-2">{{$message}}</p>
+            @enderror
+        </div>
+        <div class="form-group">
+            {!! Form::label('CandidID', 'کد دانش آموز در آزمون') !!}
+            {!! Form::text('CandidID',old('CandidID') ,['placeholder'=>'']) !!}
+            @error('CandidID')
+            <p class="text-danger my-2">{{$message}}</p>
+            @enderror
+        </div>
+        <div class="form-group">
+            {!! Form::label('Tel', 'شماره تماس') !!}
+            {!! Form::text('Tel',old('NIN') ,['placeholder'=>'09*********']) !!}
+            @error('Tel')
             <p class="text-danger my-2">{{$message}}</p>
             @enderror
         </div>

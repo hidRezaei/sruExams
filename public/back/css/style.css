@@ -211,7 +211,7 @@ body{
 }
 
 .form-group input{
-    width: 50%;
+    width: 40%; /*50%*/
     padding: 10px;
     border: none;
     font-size: 14px;
