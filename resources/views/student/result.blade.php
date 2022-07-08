@@ -14,7 +14,7 @@
         <!--img src="{{ asset('/getAns/1/1.jpg') }}" style="border:1px solid black" width="200" /-->
         <!--img src="{{ route('image.displayImage' , ['lessonNumber'=>1,'QN'=>'1', 'filename'=>'1.jpg']) }}" style="border:1px solid black" width="200" /-->
         @foreach($validExams as $exam)
-            <p style="padding-right:30px;line-height:300%;color:yellow;background-color:black">{{' آزمون ' . $examClass->getExamLessonTitle($exam) }}</p>
+            <p style="margin:40px 5px 10px 0 ;padding-right:30px;line-height:300%;color:yellow;background-color:black; border-radius: 7px">{{' آزمون ' . $examClass->getExamLessonTitle($exam) }}</p>
             @php
                 $questionNumber = $student->getQuestionCount($exam);
             @endphp
@@ -30,10 +30,12 @@
                             style="border:1px solid black" width="200"/></a>
                 @endforeach
             @endforeach
+
+            <p style="margin:10px 5px 10px 0 ;padding-right:30px;line-height:200%;color:white;background-color:#6610f2; border-radius: 7px"> کارنامه آزمون {{$examClass->getExamLessonTitle($exam) }} </p>
+            <a href="{{route('student.karname', ['lessonNumber'=>$exam]) }}" style="margin-right: 50px;text-decoration: none">برای دریافت فایل کارنامه کلیک کنید</a>
+
         @endforeach
 
-        <p style="padding-right:30px;line-height:300%;color:yellow;background-color:black">دریافت کارنامه</p>
-        <a href="{{route('student.karname') }}">برای دریافت فایل کارنامه کلیک کنید</a>
 
         <p>
             @php

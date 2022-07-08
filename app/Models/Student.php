@@ -49,7 +49,7 @@ class Student extends Authenticatable
             dd(2);*/
 
         $resultArr = array();
-        for( $k=1;$k<=18;$k++)
+        for( $k=1;$k<=15;$k++)
         {
             $path = 'resultFiles/1401/M2/'. $k .'/' . auth('student')->user()->CandidID ;
             if(Storage::exists($path))

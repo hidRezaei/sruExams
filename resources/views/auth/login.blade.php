@@ -42,7 +42,18 @@
             border-right-width: 1px;
             border-top-right-radius: 0.25rem !important;
             border-bottom-right-radius: 0.25rem !important;
+        }
 
+        .card-cst-1{
+            border-radius: 0 !important;
+            border-top-right-radius: 0.25rem !important;
+            border-bottom-right-radius: 0.25rem !important;
+        }
+
+        .card-cst-2{
+            border-radius: 0 !important;
+            border-top-left-radius: 0.25rem !important;
+            border-bottom-left-radius: 0.25rem !important;
         }
 
 
@@ -53,7 +64,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8 mt-5">
                 <div class="card-group mb-0">
-                    <div class="card p-4">
+                    <div class="card p-4 card-cst-1 ">
                         <div class="card-body">
 
                             <form action="{{route('login.store')}}" method="post">
@@ -89,12 +100,14 @@
                             </form>
                         </div>
                     </div>
-                    <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
+                    <div class="card text-white bg-primary py-5 d-md-down-none card-cst-2 " style="width:44%">
                         <div class="card-body text-center">
                             <div>
+                                <img src="{{asset('images/logo2.png')}}" width="130" style="margin-left:30px !important;" />
+                                <img src="{{asset('images/ped.png')}}" width="100" />
                                 <h2>سامانه آزمون</h2>
-                                <p>متن توضیحات متن توضیح متن توضیح متن توضیحات متن توضیح متن توضیح متن توضیحات متن توضیح متن توضیح </p>
-                                <button type="button" class="btn btn-primary active mt-3">وارد شوید!</button>
+                                <p>باشگاه دانش پژوهان جوان</p>
+                                <button type="button" class="btn btn-light active mt-3">وارد شوید!</button>
                             </div>
                         </div>
                     </div>

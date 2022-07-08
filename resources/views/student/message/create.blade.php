@@ -19,8 +19,8 @@
                 @enderror
             </div>
             <div class="form-group">
-                {!! Form::label('Subject2', 'شماره سوال') !!}
-                {!! Form::text('Subject2',null ,['placeholder'=>'فقط شماره ذکر شود']) !!}
+                {!! Form::label('Subject2', 'موضوع') !!}
+                {!! Form::text('Subject2',null ,['placeholder'=>'شماره سوال، پاسخنامه تستی، کارنامه یا...']) !!}
                 @error('Subject2')
                 <p class="text-danger my-2">{{$message}}</p>
                 @enderror

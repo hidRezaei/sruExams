@@ -45,7 +45,7 @@ Route::resource('student.message',messageController::class)->parameters(['studen
 
 
 Route::get('/getAns/{lessonNumber}/{QN}/{filename}',[\App\Http\Controllers\Student\homeController::class, 'displayImage'])->middleware(['auth:student'])->name('image.displayImage');
-Route::get('/getKarname',[\App\Http\Controllers\Student\homeController::class, 'getKarname'])->middleware(['auth:student'])->name('student.karname');
+Route::get('/getKarname/{lessonNumber}',[\App\Http\Controllers\Student\homeController::class, 'getKarname'])->middleware(['auth:student'])->name('student.karname');
 
 Route::get('/stlogin', function () { return view('student_login');})->name('stlogin');
 require __DIR__.'/auth.php';

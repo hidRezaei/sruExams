@@ -24,7 +24,7 @@
                     <td>{{ $counter++}}</td>
                     <td>{{$message->SenderTitle()}}</td>
                     <td>{{$message->ReceiverTitle()}}</td>
-                    <td>سوال {{$message->Subject2}}</td>
+                    <td> {{$message->Subject2}}</td>
                     <td>{{$message->Jalali()}}</td>
                     <td><a href="{{route('student.message.edit', ['sid'=> auth('student')->id(),'mid'=>$message->id] )}}" class="text-blue text-decoration-none"> <i class="fas fa-edit"></i></a></td>
                     <td>
