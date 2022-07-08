@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{asset('back/css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{asset('back/css/style.css')}}">
-    <title>پنل مدیریت</title>
+    <title>پنل دانش اموز</title>
 </head>
 <body>
 
-@include('admin.sidebar')
+@include('student.sidebar')
 
 <div id="main">
 
-    @include('admin.head')
+    @include('student.head')
 
     {{--@include('admin.information')--}}
 
@@ -33,7 +33,7 @@
 <script src="{{asset('back/js/jquery.js')}}"></script>
 <script src="{{asset('back/js/all.min.js')}}"></script>
 <script src="{{asset('back/js/main.js')}}"></script>
-<script src="{{asset('js/sweetalert2@11')}}"></script>
+<script src="{{asset('js/sweetalert2.all.min.js')}}"></script>
 
 @yield('js')
 </body>

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('Students', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('oldSystemID')->nullable();
             $table->string('FName',300);

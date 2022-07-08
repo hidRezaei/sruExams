@@ -109,6 +109,8 @@ class StudentController extends Controller
 
     public function destroy($id)
     {
-        //
+        /*$seo = Seo::findOrFail($id);
+        $seo->destroy($id);
+        return redirect()->route('seo.index');**/
     }
 }

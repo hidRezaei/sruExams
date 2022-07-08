@@ -13,15 +13,15 @@
         <span class="icon"><i class="fas fa-users"></i></span>
         مشاهده پاسخ آزمون
     </a>
-    <a href="#" class="icon-a">
+    <a href="{{route('student.profile',auth('student')->id())}}" class="icon-a">
         <span class="icon"><i class="fas fa-users"></i></span>
         پروفایل
     </a>
-    <!--a href="#" class="icon-a">
-        <span class="icon"><i class="fas fa-ellipsis-h"></i></span>
-        منوی بالایی
+    <a href="{{route('student.message.index',auth('student')->id())}}" class="icon-a">
+        <span class="icon"><i class="fas fa-comment-alt"></i></span>
+        پیام ها
     </a>
-    <a href="#" class="icon-a">
+    <!--a href="#" class="icon-a">
         <span class="icon"><i class="fas fa-laptop-house"></i></span>
         خانه
     </a>
