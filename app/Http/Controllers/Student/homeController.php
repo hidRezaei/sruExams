@@ -34,7 +34,7 @@ class homeController extends Controller
     public function getResultPageData()
     {
         $studentClass = new Student();
-        $compactData=array('validExams'=>$studentClass->getValidExams() /*,'questionNumber'=>$studentClass->getQuestionCount(1)  *//*, 'answerPages'=>getAnswerPagesOfQuestion()*/ );
+        $compactData=array('validExams'=>$studentClass->getValidExams(),'validExamsForKaname'=>$studentClass->getValidExamsForKarname() /*,'questionNumber'=>$studentClass->getQuestionCount(1)  *//*, 'answerPages'=>getAnswerPagesOfQuestion()*/ );
         //$data=array('questionNumber'=>$students, 'instructors'=>$instructors, 'instituitions'=>$instituitions);
         //dd($compactData);
         //return view('admin.student.index', compact($compactData));

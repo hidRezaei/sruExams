@@ -38,7 +38,6 @@ class Student extends Authenticatable
 
     public function getValidExams()
     {
-
         /*$path = storage_path().'\app\resultFiles2\100041\1\1.jpg';
         echo ($path);
         //dd($path);
@@ -49,7 +48,7 @@ class Student extends Authenticatable
             dd(2);*/
 
         $resultArr = array();
-        for( $k=1;$k<=15;$k++)
+        for( $k=1;$k<=18;$k++)
         {
             $path = 'resultFiles/1401/M2/'. $k .'/' . auth('student')->user()->CandidID ;
             if(Storage::exists($path))
@@ -58,6 +57,19 @@ class Student extends Authenticatable
         //dd($resultArr);
         return ($resultArr);
     }
+
+    public function getValidExamsForKarname()
+    {
+        $resultArr = array();
+        for( $k=1;$k<=15;$k++)
+        {
+            $path = 'resultFiles/1401/M2/20/'. $k .'/' . auth('student')->user()->CandidID .'.pdf';
+            if(Storage::exists($path))
+                $resultArr[] = $k;
+        }
+        return ($resultArr);
+    }
+
 
     public function getQuestionCount($lessonNumber)
     {

@@ -10,6 +10,32 @@ class Exam extends Model
     {
         return array(
             1 => 'فیزیک',
+            2 =>'سلول های بنیادی و پزشکی بازساختی',
+            3 =>'کامپیوتر- روز اول',
+            4 =>'کامپیوتر - روز دوم',
+            5 =>'ادبی',
+            6 =>'شیمی - تستی',
+            7 =>'ریاضی - روز اول',
+            8 =>'جغرافیا',
+            9 =>'زیست شناسی',
+            10 =>'ریاضی - روز دوم',
+            11 =>'نجوم و اختر فیزیک',
+            12 =>'علوم زمین',
+            13 =>'اقتصاد و مدیریت',
+            14 =>'تفکر و کارآفرینی - تشریحی',
+            15 =>'تفکر و کارآفرینی - تستی',
+            16 =>'علوم و نانو فناوری - تستی',
+            17 =>'علوم و نانو فناوری - تشریحی',
+            18 =>'شیمی - تشریحی',
+            //14 =>'14',
+            //15 =>'15'
+        );
+    }
+
+    public function ExamLessonsForKarname()
+    {
+        return array(
+            1 => 'فیزیک',
             2 =>'ریاضی',
             3 =>'شیمی',
             4 =>'نجوم و اختر فیزیک',
@@ -27,31 +53,86 @@ class Exam extends Model
         );
     }
 
+    public function ExamLessonsForSubject()
+    {
+        return array(
+            1 => 'فیزیک',
+            2 =>'سلول های بنیادی و پزشکی بازساختی',
+            3 =>'کامپیوتر- روز اول',
+            4 =>'کامپیوتر - روز دوم',
+            5 =>'ادبی',
+            6 =>'شیمی - تستی',
+            7 =>'ریاضی',
+            8 =>'جغرافیا',
+            9 =>'زیست شناسی',
+            10 =>'ریاضی',
+            11 =>'نجوم و اختر فیزیک',
+            12 =>'علوم زمین',
+            13 =>'اقتصاد و مدیریت',
+            14 =>'تفکر و کارآفرینی - تشریحی',
+            15 =>'تفکر و کارآفرینی - تستی',
+            16 =>'علوم و نانو فناوری - تستی',
+            17 =>'علوم و نانو فناوری - تشریحی',
+            18 =>'شیمی - تشریحی',
+        );
+    }
+
     public function getExamLessonTitle($lessonNumber)
     {
         $tmpArr = self::ExamLessons();
         return $tmpArr[$lessonNumber];
     }
 
+    public function getExamLessonTitleForkarname($lessonNumber)
+    {
+        $tmpArr = self::ExamLessonsForKarname();
+        return $tmpArr[$lessonNumber];
+    }
+
     public function getMessageSubjectOptions()
     {
-        $tmpArr = self::ExamLessons();
+        $tmpArr = self::ExamLessonsForSubject();
         $studentclass = new Student();
         $exArr = $studentclass->getValidExams();
-        $resultArr = array();
+        $resultArr = array(0=>'انتخاب کنید');
         foreach($exArr As $ex )
-            $resultArr[] = $tmpArr[$ex];
-        return array_merge(
+            if($ex == 10 && in_array(7,$exArr))
+                continue;
+            else
+                $resultArr[$ex] = $tmpArr[$ex];
+        return($resultArr);
+        /*return array_merge(
             array(0 => 'انتخاب کنید'),
             $resultArr /*,
             array(19 => 'پاسخنامه تستی',
-                20 => 'کارنامه')*/
-        );
+                20 => 'کارنامه')*//*
+        );*/
     }
 
     public function getMessageSubjectOptionsForAdmin()
     {
-        $tmpArr = self::ExamLessons();
+        //$tmpArr = self::ExamLessons();
+        $tmpArr = array(
+            1 => 'فیزیک',
+            2 =>'سلول های بنیادی و پزشکی بازساختی',
+            3 =>'کامپیوتر- روز اول',
+            4 =>'کامپیوتر - روز دوم',
+            5 =>'ادبی',
+            6 =>'شیمی - تستی',
+            7 =>'ریاضی',
+            8 =>'جغرافیا',
+            9 =>'زیست شناسی',
+            10 =>'ریاضی',
+            11 =>'نجوم و اختر فیزیک',
+            12 =>'علوم زمین',
+            13 =>'اقتصاد و مدیریت',
+            14 =>'تفکر و کارآفرینی - تشریحی',
+            15 =>'تفکر و کارآفرینی - تستی',
+            16 =>'علوم و نانو فناوری - تستی',
+            17 =>'علوم و نانو فناوری - تشریحی',
+            18 =>'شیمی - تشریحی',
+        );
+
         return array_merge(
             array(0 => 'انتخاب کنید'),
             $tmpArr /*,

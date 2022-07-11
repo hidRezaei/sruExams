@@ -3,7 +3,7 @@
 @section('content')
     <div class="dynamic-content">
         <h2>اعتراض ها</h2>
-        <a href="{{route('admin.message.create',-10001)}}" ><button type="button" class="btn btn-primary btn-lg">جدید</button></a>
+        <!--a href="{{route('admin.message.create',-10001)}}" ><button type="button" class="btn btn-primary btn-lg">جدید</button></a-->
         <table class="mb-5">
             <tbody>
             <tr>

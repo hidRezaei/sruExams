@@ -31,9 +31,16 @@
                 @endforeach
             @endforeach
 
+            @php /*
             <p style="margin:10px 5px 10px 0 ;padding-right:30px;line-height:200%;color:white;background-color:#6610f2; border-radius: 7px"> کارنامه آزمون {{$examClass->getExamLessonTitle($exam) }} </p>
             <a href="{{route('student.karname', ['lessonNumber'=>$exam]) }}" style="margin-right: 50px;text-decoration: none">برای دریافت فایل کارنامه کلیک کنید</a>
+            */ @endphp
+        @endforeach
 
+
+        @foreach($validExamsForKaname as $exam)
+            <p style="margin:10px 5px 10px 0 ;padding-right:30px;line-height:200%;color:white;background-color:#6610f2; border-radius: 7px"> کارنامه آزمون {{$examClass->getExamLessonTitleForkarname($exam) }} </p>
+            <a href="{{route('student.karname', ['lessonNumber'=>$exam]) }}" style="margin-right: 50px;text-decoration: none">برای دریافت فایل کارنامه کلیک کنید</a>
         @endforeach
 
 

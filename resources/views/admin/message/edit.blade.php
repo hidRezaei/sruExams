@@ -5,8 +5,8 @@
         <h2>جزئیات پیام</h2>
         @php
             //$options = ['24' => 'Product 1', '32' => 'Product 2', '54' => 'Product 3'];
-            $examClass = new \App\Models\Exam();
-            $options = $examClass->getMessageSubjectOptionsForAdmin();
+            //$examClass = new \App\Models\Exam();
+            //$options = $examClass->getMessageSubjectOptionsForAdmin();
 
             // $selected = 24;
             //dd($message);

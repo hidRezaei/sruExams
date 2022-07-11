@@ -7,13 +7,13 @@
             //$options = ['24' => 'Product 1', '32' => 'Product 2', '54' => 'Product 3'];
             $examClass = new \App\Models\Exam();
             $options = $examClass->getMessageSubjectOptions();
-
-        $selected = 24;
+            //dd($options);
+            $selected = 0;
         @endphp
         {!! Form::open(['route'=>array('student.message.store',['sid'=>auth('student')->id() ]), 'method'=>'post']) !!}
             <div class="form-group">
                 {!! Form::label('Subject', 'انتخاب آزمون') !!}
-                {!! Form::select('Subject',$options ,$selected) !!}
+                {!! Form::select('Subject',$options,$selected) !!}
                 @error('Subject')
                 <p class="text-danger my-2">{{$message}}</p>
                 @enderror

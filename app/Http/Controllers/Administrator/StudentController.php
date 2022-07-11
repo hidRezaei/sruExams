@@ -20,7 +20,7 @@ class StudentController extends Controller
         $students = DB::select('select * from students where id >= ? and id < ?',[0,1000]);
         //$students = DB::select('select * from students where password like ?',[Hash::make('123456')]);
         foreach ($students AS $student)
-            DB::update('update Students set password = ? where id = ?',[Hash::make($student->NIN),$student->id]);
+            DB::update('update Students set password = ? where id = ?',[Hash::make($student->Tel),$student->id]);
 
         dd(  count($students));*/
         return view('admin.student.index', compact('students'));

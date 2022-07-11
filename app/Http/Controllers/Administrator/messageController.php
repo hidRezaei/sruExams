@@ -78,7 +78,8 @@ class messageController extends Controller
         //$message = Message::findOrFail($mid);
 
         $examClass = new Exam();
-        $AllSubject = $examClass->ExamLessons();
+        //$AllSubject = $examClass->ExamLessons();
+        $AllSubject = $examClass->ExamLessonsForSubject();
         $tmpSTR = '(Select 0 AS ID,N\'-\' AS Title ';
         foreach($AllSubject AS $key=>$value)
             $tmpSTR .= 'UNION Select '. $key .' AS ID , N\''. $value .' \' AS Title ';
