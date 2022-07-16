@@ -1,9 +1,9 @@
 @extends('admin.index')
 
 @section('content')
-    <span class="nav2">
+    <!--span class="nav2">
         داشبورد
-    </span>
+    </span-->
 
     <div class="information" >
         <div class="col-div-3">
