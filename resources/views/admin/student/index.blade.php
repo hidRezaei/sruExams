@@ -4,6 +4,34 @@
     <div class="dynamic-content">
         <h2>دانش آموزان</h2>
         <!--a href="{{route('student.create')}}" ><button type="button" class="btn btn-primary btn-sm">جدید</button></a-->
+
+
+        <div class="mb-5">
+            <div class="mx-auto pull-right">
+                <div class="">
+                    <form action="{{ route('student.index') }}" method="GET" role="search">
+
+                        <div class="input-group" style="width:50% !important">
+                        <span class="input-group-btn mr-5">
+                            <button class="btn btn-info" type="submit" title="Search projects">
+                                <span class="fas fa-search"></span>
+                            </button>
+                        </span>
+                            <input type="text" class="form-control mr-2" name="term"      @if(isset($_GET['term'])) value="{{ $_GET['term']}}" @endif placeholder="جستجو بر اساس نام، نام خانوادگی، کد ملی، شماره تماس، کد داوطلبی" id="term">
+                            <a href="{{ route('student.index') }}" >
+                            <span class="input-group-btn">
+                                <button class="btn btn-danger" type="button" title="Refresh page">
+                                    <span class="fas fa-sync-alt"></span>
+                                </button>
+                            </span>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
         <table class="mb-5">
             <tbody>
             <tr>

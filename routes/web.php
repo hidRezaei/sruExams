@@ -24,6 +24,17 @@ Route::get('/admin/dashboard', function () { return view('admin.dashboard');})->
 Route::middleware(['auth'])->resource('/admin/student', \App\Http\Controllers\Administrator\StudentController::class)->parameters(['student'=>'id']);
 Route::resource('admin.message',\App\Http\Controllers\Administrator\messageController::class)->parameters(['admin'=>'aid','message'=>'mid'])->middleware(['auth']);
 Route::resource('admin.elanat',\App\Http\Controllers\Administrator\elanatController::class)->parameters(['admin'=>'aid','elanat'=>'eid'])->middleware(['auth']);
+Route::middleware(['auth'])->resource('/admin/doreh',\App\Http\Controllers\Administrator\dorehController::class)->parameters(['doreh'=>'did']);
+
+Route::get('/admin/doreh/{did}/dorehSteps',[\App\Http\Controllers\Administrator\dorehController::class,'getdorehSteps'])->middleware(['auth'])->name('dorehSteps');
+Route::post('/admin/doreh/{did}/dorehSteps',[\App\Http\Controllers\Administrator\dorehController::class,'dorehStepStore'])->middleware(['auth'])->name('dorehStepStore');
+Route::delete('/admin/doreh/{sid}/dorehSteps',[\App\Http\Controllers\Administrator\dorehController::class,'dorehStepDestroy'])->middleware(['auth'])->name('dorehStepDestroy');
+
+Route::get('/admin/doreh/{did}/step/{sid}/dorehStepLessons',[\App\Http\Controllers\Administrator\dorehController::class,'getDorehStepLessons'])->middleware(['auth'])->name('dorehStepLessons');
+Route::post('/admin/doreh/{did}/step/{sid}/dorehStepLessons',[\App\Http\Controllers\Administrator\dorehController::class,'dorehStepLessonsStore'])->middleware(['auth'])->name('dorehStepLessonsStore');
+
+Route::middleware(['auth'])->resource('/admin/lesson',\App\Http\Controllers\Administrator\lessonController::class)->parameters(['lesson'=>'lid']);
+
 Route::get('/setting',[\App\Http\Controllers\Administrator\settingController::class,'getSetting'])->middleware(['auth'])->name('admin.setting');
 Route::post('/setting',[\App\Http\Controllers\Administrator\settingController::class,'updateSetting'])->middleware(['auth'])->name('admin.setting');
 

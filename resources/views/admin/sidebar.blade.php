@@ -1,19 +1,18 @@
-
 <div id="mySlidenav" class="slidenav">
     <p class="logo"><span>S</span>ruExams</p>
     <a href="#" class="icon-a">
         <span class="icon"><i class="fas fa-eye"></i></span>
         نمایش وب سایت
     </a>
-    <a href="{{route('adminDashboard')}}" class="icon-a">
+    <a href="{{route('adminDashboard')}}" class="icon-a @if(request()->is('admin/dashboard')) is-active  @endif">
         <span class="icon"><i class="fas fa-home"></i></span>
         داشبورد
     </a>
-    <a href="{{route('student.index')}}" class="icon-a">
+    <a href="{{route('student.index')}}" class="icon-a @if(str_contains(url()->current(),'admin/student')) is-active  @endif">
         <span class="icon"><i class="fas fa-school"></i></span>
         دانش آموزان
     </a>
-    <a href="#" class="icon-a">
+    <a href="#" class="icon-a @if(str_contains(url()->current(),'admin/user')) is-active  @endif">
         <span class="icon"><i class="fas fa-users"></i></span>
         کاربران
     </a>
@@ -21,17 +20,25 @@
         <span class="icon"><i class="fas fa-users"></i></span>
         پروفایل
     </a-->
-    <a href="{{route('admin.message.index',/*auth()->id()*/-10001)}}" class="icon-a">
+    <a href="{{route('admin.message.index',/*auth()->id()*/-10001)}}" class="icon-a @if(str_contains(url()->current(),'message')) is-active  @endif">
         <span class="icon"><i class="fas fa-comment-alt"></i></span>
         اعتراض ها
     </a>
-    <a href="{{route('admin.elanat.index',/*auth()->id()*/-10001)}}" class="icon-a">
+    <a href="{{route('admin.elanat.index',/*auth()->id()*/-10001)}}" class="icon-a @if(str_contains(url()->current(),'elanat')) is-active  @endif">
         <span class="icon"><i class="fas fa-bell"></i></span>
           اعلانات
     </a>
-    <a href="{{route('admin.setting')}}" class="icon-a">
+    <a href="{{route('admin.setting')}}" class="icon-a @if(str_contains(url()->current(),'setting')) is-active  @endif">
         <span class="icon"><i class="fas fa-cog"></i></span>
         تنظیمات
+    </a>
+    <a href="{{route('doreh.index')}}" class="icon-a @if(str_contains(url()->current(),'doreh')) is-active  @endif">
+        <span class="icon"><i class="fas fa-cog"></i></span>
+        دوره ها
+    </a>
+    <a href="{{route('lesson.index')}}" class="icon-a @if(str_contains(url()->current(),'lesson')) is-active  @endif">
+        <span class="icon"><i class="fas fa-cog"></i></span>
+        دروس آزمون
     </a>
     <!--a href="#" class="icon-a">
         <span class="icon"><i class="fas fa-laptop-house"></i></span>

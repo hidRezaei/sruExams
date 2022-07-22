@@ -11,11 +11,28 @@ use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         //$students = Student::all();
 
-        $students = Student::paginate(10);
+        //$students = Student::paginate(10);
+        $students = Student::where([
+            ['NIN','!=',null],
+            [function($query) use ($request){
+                if(($term=$request->term)){
+                    $query->orWhere('FName','LIKE','%'. $term .'%')->get();
+                    $query->orWhere('LName','LIKE','%'. $term .'%')->get();
+                    $query->orWhere('NIN','LIKE','%'. $term .'%')->get();
+                    $query->orWhere('Tel','LIKE','%'. $term .'%')->get();
+                    $query->orWhere('CandidID','=',(((int)($term))-0) )->get();
+                }
+            }]
+        ])->orderBy('id','desc')
+            ->paginate(10);
+        $students->appends(['term' => $request->term]);
+
+
+
         /*set_time_limit(360);
         $students = DB::select('select * from students where id >= ? and id < ?',[0,1000]);
         //$students = DB::select('select * from students where password like ?',[Hash::make('123456')]);
@@ -23,7 +40,8 @@ class StudentController extends Controller
             DB::update('update Students set password = ? where id = ?',[Hash::make($student->Tel),$student->id]);
 
         dd(  count($students));*/
-        return view('admin.student.index', compact('students'));
+        return view('admin.student.index', compact('students'))
+            ->with('i',(request()->input('page',1)-1)*10);
     }
 
     public function create()

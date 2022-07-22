@@ -29,12 +29,10 @@
 </div>
 
 
-
 <script src="{{asset('back/js/jquery.js')}}"></script>
 <script src="{{asset('back/js/all.min.js')}}"></script>
 <script src="{{asset('back/js/main.js')}}"></script>
 <script src="{{asset('js/sweetalert2.all.min.js')}}"></script>
-
 @yield('js')
 </body>
 
