@@ -16,6 +16,10 @@
         <span class="icon"><i class="fas fa-users"></i></span>
         کاربران
     </a>
+    <a href="{{route('mosaheh.index')}}" class="icon-a @if(str_contains(url()->current(),'admin/mosaheh')) is-active  @endif">
+        <span class="icon"><i class="fas fa-users"></i></span>
+        مصححین
+    </a>
     <!--a href="" class="icon-a">
         <span class="icon"><i class="fas fa-users"></i></span>
         پروفایل

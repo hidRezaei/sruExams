@@ -26,12 +26,13 @@
                 <tr>
                     <td>{{$dataItem->Title}}</td>
                     <td>
+                        @php
+                            $flag = false;
+                            if($dataItem->LessonID!= null)
+                                $flag = true;
+                        @endphp
+
                         <div class="form-check form-switch">
-                            @php
-                                $flag = false;
-                                if($dataItem->LessonID!= null)
-                                    $flag = true;
-                                @endphp
                             {!! Form::checkbox('Status['. $dataItem->id .']',null,$flag,['id'=>'chk_'. $dataItem->id,'class'=>'form-check-input','role'=>'switch','style'=>'float:right;position:relative;display:block']) !!}
                         </div>
                     </td>

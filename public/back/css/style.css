@@ -244,6 +244,98 @@ body{
     margin-top: 30px;
 }
 
+.form-container{
+   width:90%;
+    /*float: right;*/
+}
+
+.form-group-row{
+    /*width: 100%;*/
+    margin-top: 30px;
+}
+.form-group-cell{
+    /*width: 100%;
+    margin-top: 30px;*/
+    display: inline-block;
+
+}
+/*.form-group label{
+    display: block;
+    margin: 10px;
+    /*color: #fff;*//*
+    width: 100%;
+}*/
+
+.form-group-cell label{
+    display: block;
+    margin: 5px;
+    /*color: #fff;*/
+    width: 50%;
+}
+
+.lbl2{
+    display: inline !important;
+    margin: 5px;
+    padding: 5px;
+    /*color: #fff;*/
+    /*width: 50%;*/
+}
+
+.form-group-cell input[type=text],
+.form-group-cell input[type=password]{
+    width: 300px;
+    padding: 10px;
+    font-size: 14px;
+    outline: none;
+    border-radius: 0.25rem;
+    border:1px solid #ced4da;
+
+}
+
+.form-group-cell input[type=text]:focus,
+.form-group-cell input[type=password]:focus
+{
+    outline: none !important;
+    border:2px solid #bfdeff;
+   box-shadow: 0 0 5px #719ECE;
+}
+
+.form-group-cell select{
+    padding: 5px;
+    width:250px;
+    margin-top: 10px;
+    outline: none;
+}
+.form-group-cell select option{
+    padding: 2px;
+}
+
+.form-group-cell input[type=radio]{
+margin-left:7px;
+margin-right: 20px}
+
+
+.btnDefault{
+    background-color: #0069d9;
+    cursor: pointer;
+    color:#ffffff;
+    border:none;
+    font-size: 12px;
+    border-radius: 5px;
+}
+
+.btnDefaultDisable{
+    background-color: #cccccc;
+    color:#000000;
+    border:none;
+    font-size: 12px;
+    border-radius: 5px;
+}
+
+.txtDefaultDisable{
+    color: #cccccc !important;
+}
+
 .panel-btn{
     background: #f7403b;
     width: 200px;
@@ -258,6 +350,49 @@ body{
 .panel-btn:hover{
     color: #000;
 }
+
+.admin-panel-btn{
+    width: 170px;
+    /*display: block;*/
+    margin-top: 50px;
+    color: #fff;
+    padding: 7px 10px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    display:inline-block;
+    float: left;
+    margin-right: 10px;
+    font-size: 14px;
+    padding: 10px;
+    /*transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;*/
+}
+
+.admin-panel-btn:hover{
+    color: #000;
+    /*transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;*/
+}
+
+.btn-green{
+    background: #28a745;
+}
+.btn-green:hover{
+    background-color: #e0a800;
+}
+
+.btn-blue{
+    background: #0069d9;
+}
+.btn-blue:hover{
+    background-color: #e0a800;
+}
+
+
+.formTable{
+    width:80% !important;
+}
+.formTable tr td{
+padding:0 !important;border-bottom: none !important}
 
 @media screen and (max-width: 992px){
     #main .information{

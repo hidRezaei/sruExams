@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('lname');
             $table->bigInteger('code')->nullable();
+            $table->integer('Role')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
