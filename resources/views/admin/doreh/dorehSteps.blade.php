@@ -1,39 +1,56 @@
 @extends('admin.index')
 @section('content')
     <div class="dynamic-content">
-        <h2>مراحل دوره</h2>
-
+        <div class="alert alert-success " role="alert">
+            <span><h4><b>مراحل دوره</b></h4></span>
+        </div>
         <div class="dynamic-content">
             {!! Form::open(['route'=>array('dorehStepStore',request()->did), 'method'=>'post']) !!}
             {!! Form::hidden('DorehID', request()->did) !!}
             @error('DorehID')
             <p class="text-danger my-2">{{$message}}</p>
             @enderror
-            <div class="form-group">
-                {!! Form::label('Status', 'فعال',['style'=>'width:5%;display:inline']) !!}
-                {!! Form::checkbox('Status',null,null,['style'=>'width:5%']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::text('Title',null ,['placeholder'=>'عنوان دوره']) !!}
-                @error('Title')
-                <p class="text-danger my-2">{{$message}}</p>
-                @enderror
-            </div>
-            <div class="form-group">
-                {!! Form::textarea('Description',null ,['placeholder'=>'توضیحات','Style'=>'height:100px;width:40%']) !!}
-                @error('Description')
-                <p class="text-danger my-2">{{$message}}</p>
-                @enderror
+
+            <div class="form-container">
+                <div class="form-group-row row" >
+                    <div class="form-group-cell col">
+                        {!! Form::label('Status', 'فعال',['style'=>'width:5%;display:inline']) !!}
+                        {!! Form::checkbox('Status',null,null,['style'=>'width:5%']) !!}
+                    </div>
+                    <div class="form-group-cell col">
+                    </div>
+                </div>
+
+                <div class="form-group-row row" >
+                    <div class="form-group-cell col">
+                        {!! Form::text('Title',null ,['placeholder'=>'عنوان دوره']) !!}
+                        @error('Title')
+                        <p class="text-danger my-2">{{$message}}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group-cell col">
+                    </div>
+                </div>
+
+                <div class="form-group-row row" >
+                    <div class="form-group-cell col">
+                        {!! Form::textarea('Description',null ,['placeholder'=>'توضیحات']) !!}
+                        @error('Description')
+                        <p class="text-danger my-2">{{$message}}</p>
+                        @enderror
+                    </div>
+                    <div class="form-group-cell col">
+                    </div>
+                </div>
+
+                <div class="form-group-row" >
+                    <div class="form-group-cell">
+                        {!! Form::submit('ثبت مرحله جدید در دوره',['class'=>'admin-panel-btn btn-green']) !!}
+                    </div>
+                </div>
             </div>
 
-
-            <div class="form-group">
-                {!! Form::submit('ثبت مرحله جدید در دوره',['class'=>'panel-btn']) !!}
-            </div>
             {!! Form::close() !!}
-
-
-
 
 
 
@@ -65,9 +82,12 @@
 
             </tbody>
         </table>
-            <a href="{{route('doreh.edit',['did'=>request()->did])}}" ><button type="button" class="btn btn-primary btn-lg" style="float:left">بازگشت به دوره</button></a>
-            <br/>
-            <br/>
+
+            <div class="form-group-row" style="text-align: left">
+                <div class="form-group-cell">
+                    <a href="{{route('doreh.edit',['did'=>request()->did])}}" ><button type="button" class="admin-panel-btn btn-blue" style="float:left">بازگشت به دوره</button></a>
+                </div>
+            </div>
 
     </div>
 

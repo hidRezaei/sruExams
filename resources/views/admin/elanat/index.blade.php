@@ -2,7 +2,9 @@
 
 @section('content')
     <div class="dynamic-content">
-        <h2>اعلانات</h2>
+        <div class="alert alert-success " role="alert">
+            <span><h4><b>اعلانات</b></h4></span>
+        </div>
         <a href="{{route('admin.elanat.create',-10001)}}" ><button type="button" class="btn btn-primary btn-lg">جدید</button></a>
         <table class="mb-5">
             <tbody>

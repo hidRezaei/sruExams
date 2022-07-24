@@ -2,7 +2,9 @@
 
 @section('content')
     <div class="dynamic-content">
-        <h2>درس های آزمون</h2>
+        <div class="alert alert-success " role="alert">
+            <span><h4><b>درس های آزمون</b></h4></span>
+        </div>
         <a href="{{route('lesson.create')}}" ><button type="button" class="btn btn-primary btn-lg">جدید</button></a>
         <table class="mb-5">
             <tbody>

@@ -2,7 +2,9 @@
 
 @section('content')
     <div class="dynamic-content">
-        <h2>دانش آموزان</h2>
+        <div class="alert alert-success " role="alert">
+            <span><h4><b>دانش آموزان</b></h4></span>
+        </div>
         <!--a href="{{route('student.create')}}" ><button type="button" class="btn btn-primary btn-sm">جدید</button></a-->
 
 

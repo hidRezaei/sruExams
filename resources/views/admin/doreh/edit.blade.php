@@ -2,39 +2,57 @@
 
 @section('content')
     <div class="dynamic-content">
-        <h2>جزئیات دوره</h2>
+        <div class="alert alert-success " role="alert">
+            <span><h4><b>ویرایش دوره</b></h4></span>
+        </div>
         {!! Form::model($doreh,['route'=>['doreh.update',['did'=>$doreh->id]], 'method'=>'put']) !!}
-            <div class="form-group">
-                {!! Form::label('Status', 'فعال',['style'=>'width:5%;display:inline']) !!}
-                {!! Form::checkbox('Status',old('Status'),old('Status') ,['style'=>'width:5%']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::label('Title', 'عنوان') !!}
-                {!! Form::text('Title',old('Title') ,[]) !!}
-                @error('Title')
-                <p class="text-danger my-2">{{$message}}</p>
-                @enderror
-            </div>
-            <div class="form-group">
-                {!! Form::label('Description', 'توضیحات') !!}
-                {!! Form::textarea('Description',old('Description') ,['style'=>'height:140px']) !!}
-                @error('Description')
-                <p class="text-danger my-2">{{$message}}</p>
-                @enderror
+        <div class="form-container">
+            <div class="form-group-row row" >
+                <div class="form-group-cell col">
+                    {!! Form::label('Status', 'فعال',['style'=>'width:5%;display:inline']) !!}
+                    {!! Form::checkbox('Status',old('Status'),old('Status') ,['style'=>'width:5%']) !!}
+                </div>
+                <div class="form-group-cell col">
+                </div>
             </div>
 
+            <div class="form-group-row row" >
+                <div class="form-group-cell col">
+                    {!! Form::label('Title', 'عنوان') !!}
+                    {!! Form::text('Title',old('Title') ,[]) !!}
+                    @error('Title')
+                    <p class="text-danger my-2">{{$message}}</p>
+                    @enderror
+                </div>
+                <div class="form-group-cell col">
+                </div>
+            </div>
 
-        <div class="form-group">
-            {!! Form::submit('ثبت اطلاعات',['class'=>'panel-btn']) !!}
+            <div class="form-group-row row" >
+                <div class="form-group-cell col">
+                    {!! Form::label('Description', 'توضیحات') !!}
+                    {!! Form::textarea('Description',old('Description') ,['style'=>'height:140px']) !!}
+                    @error('Description')
+                    <p class="text-danger my-2">{{$message}}</p>
+                    @enderror
+                </div>
+                <div class="form-group-cell col">
+                </div>
+            </div>
+
+            <div class="form-group-row" style="text-align: left">
+                <div class="form-group-cell">
+                    {!! Form::submit('ثبت اطلاعات',['class'=>'admin-panel-btn btn-green']) !!}
+                </div>
+                <div class="form-group-cell">
+                    <a href="{{route('dorehSteps',['did'=>$doreh->id])}}" ><button type="button" class="admin-panel-btn btn-blue" style="float:left">مراحل دوره</button></a>
+                </div>
+                <div class="form-group-cell">
+                    <a href="{{route('doreh.index')}}" ><button type="button" class="admin-panel-btn btn-blue" style="float:left">بازگشت به لیست</button></a>
+                </div>
+            </div>
         </div>
         {!! Form::close() !!}
-        <br/>
-        <a href="{{route('doreh.index')}}" ><button type="button" class="btn btn-primary btn-lg mx-4" style="float:left">بازگشت به لیست</button></a>
-        <a href="{{route('dorehSteps',['did'=>$doreh->id])}}" ><button type="button" class="btn btn-primary btn-lg" style="float:left">مراحل دوره</button></a>
-        <br/>
-        <br/>
-
-
     </div>
 
 @endsection

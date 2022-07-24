@@ -26,6 +26,7 @@
                     @enderror
                 </div>
             </div>
+
             <div class="form-group-row row" >
                 <div class="form-group-cell col">
                     {!! Form::label('code', 'کد') !!}
