@@ -16,6 +16,7 @@ body{
     background-color: #1b203d;
 }
 
+a{cursor: pointer}
 
 
 .slidenav{
@@ -121,8 +122,8 @@ body{
 
 #main .head .prof-admin span{
     color: #8e8e8e;
-    font-size: 12px;
-    display: block;
+    font-size: 13px;
+    /*display: block;*/
 }
 
 #main .information{

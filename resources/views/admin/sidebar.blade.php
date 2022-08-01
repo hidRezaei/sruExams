@@ -8,41 +8,57 @@
         <span class="icon"><i class="fas fa-home"></i></span>
         داشبورد
     </a>
-    <a href="{{route('student.index')}}" class="icon-a @if(str_contains(url()->current(),'admin/student')) is-active  @endif">
-        <span class="icon"><i class="fas fa-school"></i></span>
-        دانش آموزان
-    </a>
-    <a href="#" class="icon-a @if(str_contains(url()->current(),'admin/user')) is-active  @endif">
-        <span class="icon"><i class="fas fa-users"></i></span>
-        کاربران
-    </a>
-    <a href="{{route('mosaheh.index')}}" class="icon-a @if(str_contains(url()->current(),'admin/mosaheh')) is-active  @endif">
-        <span class="icon"><i class="fas fa-users"></i></span>
-        مصححین
-    </a>
-    <!--a href="" class="icon-a">
-        <span class="icon"><i class="fas fa-users"></i></span>
-        پروفایل
-    </a-->
-    <a href="{{route('admin.message.index',/*auth()->id()*/-10001)}}" class="icon-a @if(str_contains(url()->current(),'message')) is-active  @endif">
-        <span class="icon"><i class="fas fa-comment-alt"></i></span>
-        اعتراض ها
-    </a>
-    <a href="{{route('admin.elanat.index',/*auth()->id()*/-10001)}}" class="icon-a @if(str_contains(url()->current(),'elanat')) is-active  @endif">
-        <span class="icon"><i class="fas fa-bell"></i></span>
-          اعلانات
-    </a>
+
+    @if(auth()->user()->Role == config('constants.Role.ADMIN'))
+        <a href="{{route('student.index')}}" class="icon-a @if(str_contains(url()->current(),'admin/student')) is-active  @endif">
+            <span class="icon"><i class="fas fa-school"></i></span>
+            دانش آموزان
+        </a>
+        <a href="#" class="icon-a @if(str_contains(url()->current(),'admin/user')) is-active  @endif">
+            <span class="icon"><i class="fas fa-users"></i></span>
+            کاربران
+        </a>
+        <a href="{{route('mosaheh.index')}}" class="icon-a @if(str_contains(url()->current(),'admin/mosaheh')) is-active  @endif">
+            <span class="icon"><i class="fas fa-users"></i></span>
+            مصححین
+        </a>
+        <!--a href="" class="icon-a">
+            <span class="icon"><i class="fas fa-users"></i></span>
+            پروفایل
+        </a-->
+        <a href="{{route('admin.message.index',/*auth()->id()*/-10001)}}" class="icon-a @if(str_contains(url()->current(),'message')) is-active  @endif">
+            <span class="icon"><i class="fas fa-comment-alt"></i></span>
+            اعتراض ها
+        </a>
+        <a href="{{route('admin.elanat.index',/*auth()->id()*/-10001)}}" class="icon-a @if(str_contains(url()->current(),'elanat')) is-active  @endif">
+            <span class="icon"><i class="fas fa-bell"></i></span>
+              اعلانات
+        </a>
+        <a href="{{route('doreh.index')}}" class="icon-a @if(str_contains(url()->current(),'doreh')) is-active  @endif">
+            <span class="icon"><i class="fas fa-cog"></i></span>
+            دوره ها
+        </a>
+        <a href="{{route('lesson.index')}}" class="icon-a @if(str_contains(url()->current(),'lesson')) is-active  @endif">
+            <span class="icon"><i class="fas fa-cog"></i></span>
+            دروس آزمون
+        </a>
+    @endif
+    @if(auth()->user()->Role == config('constants.Role.MOSAHEH'))
+        <a href="{{route('tashih')}}" class="icon-a @if(str_contains(url()->current(),'admin/student')) is-active  @endif">
+            <span class="icon"><i class="fas fa-school"></i></span>
+            تصحیح
+        </a>
+    @endif
+
+
     <a href="{{route('admin.setting')}}" class="icon-a @if(str_contains(url()->current(),'setting')) is-active  @endif">
         <span class="icon"><i class="fas fa-cog"></i></span>
         تنظیمات
     </a>
-    <a href="{{route('doreh.index')}}" class="icon-a @if(str_contains(url()->current(),'doreh')) is-active  @endif">
-        <span class="icon"><i class="fas fa-cog"></i></span>
-        دوره ها
-    </a>
-    <a href="{{route('lesson.index')}}" class="icon-a @if(str_contains(url()->current(),'lesson')) is-active  @endif">
-        <span class="icon"><i class="fas fa-cog"></i></span>
-        دروس آزمون
+
+    <a  class="icon-a" onclick="logoutUser()">
+        <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+        خروج
     </a>
     <!--a href="#" class="icon-a">
         <span class="icon"><i class="fas fa-laptop-house"></i></span>

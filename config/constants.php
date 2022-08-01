@@ -13,7 +13,7 @@ return [
     'Role' =>[
         'ADMIN' =>-1001,
         'MOSAHEH' => -1002,
-        'Nazer' => -1003
+        'NAZER' => -1003
     ],
     'options' => [
         'option_attachment' => '13',

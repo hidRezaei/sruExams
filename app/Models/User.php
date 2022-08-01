@@ -43,4 +43,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function RoleFarsi(){
+        if($this->Role == config('constants.Role.ADMIN')) return 'مدیر';
+        if($this->Role == config('constants.Role.MOSAHEH')) return 'مصحح';
+        if($this->Role == config('constants.Role.NAZER')) return 'ناظر';
+    }
+
 }

@@ -22,7 +22,7 @@ Route::get('/admin', function () { return view('admin.dashboard');})->middleware
 Route::get('/admin/dashboard', function () { return view('admin.dashboard');})->middleware(['auth'])->name('adminDashboard');
 
 Route::middleware(['auth'])->resource('/admin/student', \App\Http\Controllers\Administrator\StudentController::class)->parameters(['student'=>'id']);
-Route::middleware(['auth'])->resource('/admin/mosaheh', \App\Http\Controllers\Administrator\mosahehController::class)->parameters(['mosaheh'=>'id']);
+Route::middleware(['auth','admin'])->resource('/admin/mosaheh', \App\Http\Controllers\Administrator\mosahehController::class)->parameters(['mosaheh'=>'id']);
 Route::resource('admin.message',\App\Http\Controllers\Administrator\messageController::class)->parameters(['admin'=>'aid','message'=>'mid'])->middleware(['auth']);
 Route::resource('admin.elanat',\App\Http\Controllers\Administrator\elanatController::class)->parameters(['admin'=>'aid','elanat'=>'eid'])->middleware(['auth']);
 Route::middleware(['auth'])->resource('/admin/doreh',\App\Http\Controllers\Administrator\dorehController::class)->parameters(['doreh'=>'did']);
@@ -35,6 +35,10 @@ Route::get('/admin/doreh/{did}/step/{sid}/dorehStepLessons',[\App\Http\Controlle
 Route::post('/admin/doreh/{did}/step/{sid}/dorehStepLessons',[\App\Http\Controllers\Administrator\dorehController::class,'dorehStepLessonsStore'])->middleware(['auth'])->name('dorehStepLessonsStore');
 
 Route::middleware(['auth'])->resource('/admin/lesson',\App\Http\Controllers\Administrator\lessonController::class)->parameters(['lesson'=>'lid']);
+
+
+Route::get('/tashih',[\App\Http\Controllers\Administrator\tashihController::class,'index'])->middleware(['auth','mosaheh'])->name('tashih');
+Route::get('/tashihEdit/{sid}/{lid}/{qid}',[\App\Http\Controllers\Administrator\tashihController::class,'edit'])->middleware(['auth','mosaheh'])->name('tashihEdit');
 
 Route::get('/setting',[\App\Http\Controllers\Administrator\settingController::class,'getSetting'])->middleware(['auth'])->name('admin.setting');
 Route::post('/setting',[\App\Http\Controllers\Administrator\settingController::class,'updateSetting'])->middleware(['auth'])->name('admin.setting');
@@ -61,6 +65,9 @@ Route::namespace('Student')->prefix('student')->group(function (){
 });
 
 Route::resource('student.message',messageController::class)->parameters(['student'=>'sid','message'=>'mid'])->middleware(['auth:student']);
+
+
+Route::get('/getAns2/{stcode}/{lessonNumber}/{QN}/{filename}',[\App\Http\Controllers\Administrator\tashihController::class, 'getAnswerImage'])->middleware(['auth'])->name('displayAnswerImage');
 
 
 Route::get('/getAns/{lessonNumber}/{QN}/{filename}',[\App\Http\Controllers\Student\homeController::class, 'displayImage'])->middleware(['auth:student'])->name('image.displayImage');
