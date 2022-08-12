@@ -24,7 +24,6 @@ class mosahehController extends Controller
                     $query->orWhere('lname','LIKE','%'. $term .'%')->get();
                     $query->orWhere('email','LIKE','%'. $term .'%')->get();
                     $query->orWhere('code','LIKE','%'. $term .'%')->get();
-                    $query->orWhere('CandidID','=',(((int)($term))-0) )->get();
                 }
             }]
         ])->orderBy('id','desc')
@@ -59,6 +58,7 @@ class mosahehController extends Controller
             //'name'=>'required|string|max:255',
             'email'=> ['required','string','min:4', Rule::unique('Users') /*->ignore($user->id)*/],
             'password'=>['required','string','min:6', /*->ignore($user->id)*/],
+            'code'=>['numeric'],
             //'role'=>'required|max:255'
         ]);
 
@@ -144,6 +144,7 @@ class mosahehController extends Controller
         {
             $request->validate([
                 'email'=> ['required','string','min:4', Rule::unique('Users')->ignore($data->id)],
+                'code'=>['numeric'],
                 //'password'=>['required','string','min:6'],
             ]);
 
@@ -160,6 +161,7 @@ class mosahehController extends Controller
             $request->validate([
                 'email'=> ['required','string','min:4', Rule::unique('Users')->ignore($data->id)],
                 'password'=>['required','string','min:6'],
+                'code'=>['numeric'],
             ]);
 
             $data->update([

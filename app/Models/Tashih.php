@@ -10,6 +10,14 @@ class Tashih extends Model
     use HasFactory;
     protected $table = 'Tashih';
     protected $guarded = ['id'];
-    public $timestamps = false;
+    public $timestamps = true;
+
+    public function JalaliCreate(){
+        //return '5555';// verta($this->created_at)->format('H:i  -  Y/m/d ');
+    }
+    public function JalaliUpdate(){
+       // return verta($this->updated_at)->format('H:i  -  Y/m/d ');
+    }
+
 
 }

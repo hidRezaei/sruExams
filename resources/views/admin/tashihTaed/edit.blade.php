@@ -3,18 +3,17 @@
 @section('content')
     <div class="dynamic-content">
         <div class="alert alert-success " role="alert">
-            <span><h4><b>تصحیح</b></h4></span>
+            <span><h4><b>تایید تصحیح</b></h4></span>
         </div>
-        {!! Form::model($data,['route'=>['tashihStoreUpdate',$data->MosahehID], 'method'=>'PUT']) !!}
+        {!! Form::model($data,['route'=>['tashihTaedStoreUpdate',auth()->id()], 'method'=>'PUT']) !!}
 
         {!! Form::hidden('DorehID', $data->DorehID) !!}
         {!! Form::hidden('StepID', $data->StepID ) !!}
         {!! Form::hidden('StudentID', $data->StudentID ) !!}
         {!! Form::hidden('LessonID', $data->LessonID ) !!}
         {!! Form::hidden('QNumber', $data->QNumber ) !!}
-        {!! Form::hidden('MosahehID', $data->MosahehID ) !!}
-        {!! Form::hidden('OldDataID', $data->OldDataID ) !!}
-        {!! Form::hidden('hidMarkSection',old('hidMarkSection'),['id'=>'hidMarkSection']) !!}
+        {!! Form::hidden('ComiteRaesID', auth()->id()) !!}
+        {!! Form::hidden('hidTashihIDArr', $data->TashihIDArr ) !!}
 
         @error('DorehID')
         <p class="text-danger my-2">{{$message}}</p>
@@ -69,7 +68,7 @@
             @if($data->otherMosahehMark)
                 <div class="card border-dark mt-5" >
                 <div class="card-header">
-                        نمرات سایر مصححین
+                        نمرات مصححین
                 </div>
                 <div class="card-body text-dark">
                     <table class="mb-5">
@@ -80,7 +79,6 @@
                             <th>توضیح</th>
                             <th>تاریخ ثبت</th>
                             <th>تاریخ ویرایش</th>
-                            <th>وضعیت</th>
                         </tr>
                         @foreach ($data->otherMosahehMark as $item)
                             <tr>
@@ -89,11 +87,6 @@
                                 <td>{{$item->Description}}</td>
                                 <td>{{verta($item->created_at)->format('H:i  -  Y/m/d ')  }}</td>
                                 <td>{{verta($item->updated_at)->format('H:i  -  Y/m/d ')  }}</td>
-                                @if($item->Tanaghoz)
-                                    <td style="background-color: red">{{ $item->Tanaghoz }}</td>
-                                @else
-                                    <td style="">{{ $item->Tanaghoz }}</td>
-                                @endif
                             </tr>
                         @endforeach
                         </tbody>
@@ -102,76 +95,49 @@
             </div>
             @endif
 
-
-            @if($data->markLogs)
-                <div class="card border-dark mt-5" >
-                    <div class="card-header"  >
-                            تاریخچه ثبت  نمرات توسط شما
-                        <a style="color: blue;float:left" onclick="f1()" id="txtToggle"> + مشاهده</a>
-                    </div>
-                    <div class="card-body text-dark">
-                        <div id="markLogs" style="display: none">
-                            <table class="mb-5">
-                                <tbody>
-                                <tr>
-                                    <th>نمره</th>
-                                    <th>تاریخ ثبت</th>
-                                </tr>
-                                @foreach ($data->markLogs as $item)
-                                    <tr>
-                                        <td>{{$item->Mark}}</td>
-                                        <td>{{verta($item->created_at)->format('H:i  -  Y/m/d ')  }}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+            @if($data->marksTanaghoz)
+                <div class="alert alert-danger " role="alert">
+                    <span><h5><b>با نمرات ثبت شده متناقض توسط مصححین، امکان تایید وجود ندارد</b></h5></span>
                 </div>
             @endif
 
-
             <div class="form-group-row row" >
                 <div class="form-group-cell col">
-                    {!! Form::label('Mark', 'نمره کل شما به پاسخ') !!}
-                    {!! Form::text('Mark',old('Mark'),['style'=>'']) !!}
-                    @error('Mark')
-                    <p class="text-danger my-2">{{$message}}</p>
-                    @enderror
+                    {!! Form::label('Status', 'تایید نمرات مصححین',['style'=>'width:5%;display:inline']) !!}
+                    @if($data->marksTanaghoz)
+                        {!! Form::checkbox('Status',old('Status'),old('Status') ,['style'=>'width:5%','disabled']) !!}
+                    @else
+                        {!! Form::checkbox('Status',old('Status'),old('Status') ,['style'=>'width:5%']) !!}
+                    @endif
+                    <br/>
+                    <br/>
+
+                    @if($data->TaedDate)
+                        {!! Form::label('TaedDate', 'تاریخ تایید') !!}
+                        {!! Form::text('TaedDate',old('TaedDate') ,['readonly'=>'readonly','style'=>'background-color:#cccccc']) !!}
+                    @endif
                 </div>
-                <div class="form-group-cell col">
-                    <p>نمره دهی به بخش های مختلف جواب</p>
-                    {!! Form::text('QN',null ,['placeholder'=>'مثلا: قسمت الف - 3 نمره','id'=>'txtQN','class'=>'align-top','style'=>'height:30px;width:150px !important;font-size:12px']) !!}
-
-                    <input type="button" id="btnAddQNToList" value=">>" class="btnDefault align-top" style="width:60px;height:30px;" />
-
-                    <!--label for="lstQN" class="lbl2 align-top">سوالها</label-->
-
-                    <select multiple name="lstQN"  id="lstQN" style="width:160px;font-size:12px" class="align-top" >
-                        @php
-                            if($data->markItems)
-                                foreach($data->markItems AS $item)
-                                    echo "<option value='". $item->MarkItem ."'>". $item->MarkItem ."</option>";
-                        @endphp
-                    </select>
-                    <input type="button" id="btnRemoveQN" value="حذف" class="btnDefault align-top" style="width:60px;height:30px;" />
-                </div>
-            </div>
-            <div class="form-group-row row" >
                 <div class="form-group-cell col">
                     {!! Form::label('Description', 'توضیح') !!}
-                    {!! Form::textarea('Description',old('Description') ,['style'=>'']) !!}
-                </div>
-                <div class="form-group-cell col">
+
+                    @if($data->marksTanaghoz)
+                        {!! Form::textarea('Description',old('Description') ,['style'=>'','disabled']) !!}
+                    @else
+                        {!! Form::textarea('Description',old('Description') ,['style'=>'']) !!}
+                    @endif
                 </div>
             </div>
 
             <div class="form-group-row" style="text-align: left">
                 <div class="form-group-cell">
-                    {!! Form::submit('ثبت اطلاعات',['class'=>'admin-panel-btn btn-green']) !!}
+                    @if($data->marksTanaghoz)
+                        {!! Form::submit('ثبت اطلاعات',['class'=>'admin-panel-btn btn-green','style'=>'background-color:#ccc; !important;color:#000 !important','disabled']) !!}
+                    @else
+                        {!! Form::submit('ثبت اطلاعات',['class'=>'admin-panel-btn btn-green']) !!}
+                    @endif
                 </div>
                 <div class="form-group-cell">
-                    <a href="{{route('tashih')}}" ><button type="button" class="admin-panel-btn btn-blue" style="float:left">بازگشت به لیست</button></a>
+                    <a href="{{route('tashihTaed')}}" ><button type="button" class="admin-panel-btn btn-blue" style="float:left">بازگشت به لیست</button></a>
                 </div>
             </div>
 

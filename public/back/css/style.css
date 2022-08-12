@@ -314,7 +314,7 @@ a{cursor: pointer}
 .form-group-cell select{
     padding: 5px;
     width:250px;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
     outline: none;
 }
 .form-group-cell select option{

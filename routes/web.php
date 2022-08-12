@@ -23,6 +23,7 @@ Route::get('/admin/dashboard', function () { return view('admin.dashboard');})->
 
 Route::middleware(['auth'])->resource('/admin/student', \App\Http\Controllers\Administrator\StudentController::class)->parameters(['student'=>'id']);
 Route::middleware(['auth','admin'])->resource('/admin/mosaheh', \App\Http\Controllers\Administrator\mosahehController::class)->parameters(['mosaheh'=>'id']);
+Route::middleware(['auth','admin'])->resource('/admin/comiteRaes', \App\Http\Controllers\Administrator\comiteRaesController::class)->parameters(['comiteRaes'=>'id']);
 Route::resource('admin.message',\App\Http\Controllers\Administrator\messageController::class)->parameters(['admin'=>'aid','message'=>'mid'])->middleware(['auth']);
 Route::resource('admin.elanat',\App\Http\Controllers\Administrator\elanatController::class)->parameters(['admin'=>'aid','elanat'=>'eid'])->middleware(['auth']);
 Route::middleware(['auth'])->resource('/admin/doreh',\App\Http\Controllers\Administrator\dorehController::class)->parameters(['doreh'=>'did']);
@@ -39,6 +40,11 @@ Route::middleware(['auth'])->resource('/admin/lesson',\App\Http\Controllers\Admi
 
 Route::get('/tashih',[\App\Http\Controllers\Administrator\tashihController::class,'index'])->middleware(['auth','mosaheh'])->name('tashih');
 Route::get('/tashihEdit/{sid}/{lid}/{qid}',[\App\Http\Controllers\Administrator\tashihController::class,'edit'])->middleware(['auth','mosaheh'])->name('tashihEdit');
+Route::put('/tashihStoreUpdate/{mid}',[\App\Http\Controllers\Administrator\tashihController::class,'store_update'])->middleware(['auth','mosaheh'])->name('tashihStoreUpdate');
+
+Route::get('/tashihTaed',[\App\Http\Controllers\Administrator\tashihTaedController::class,'index'])->middleware(['auth','nazer'])->name('tashihTaed');
+Route::get('/tashihTaedEdit/{sid}/{lid}/{qid}',[\App\Http\Controllers\Administrator\tashihTaedController::class,'edit'])->middleware(['auth','nazer'])->name('tashihTaedEdit');
+Route::put('/tashihTaedStoreUpdate/{uid}',[\App\Http\Controllers\Administrator\tashihTaedController::class,'store_update'])->middleware(['auth','nazer'])->name('tashihTaedStoreUpdate');
 
 Route::get('/setting',[\App\Http\Controllers\Administrator\settingController::class,'getSetting'])->middleware(['auth'])->name('admin.setting');
 Route::post('/setting',[\App\Http\Controllers\Administrator\settingController::class,'updateSetting'])->middleware(['auth'])->name('admin.setting');

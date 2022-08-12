@@ -3,13 +3,13 @@
 @section('content')
     <div class="dynamic-content">
         <div class="alert alert-success " role="alert">
-            <span><h4><b>تصحیح</b></h4></span>
+            <span><h4><b>تایید تصحیح</b></h4></span>
         </div>
 
         <div class="mb-5">
             <div class="mx-auto pull-right">
                 <div class="">
-                    <form action="{{ route('tashih') }}" method="GET" role="search">
+                    <form action="{{ route('tashihTaed') }}" method="GET" role="search">
 
                         <div class="input-group" style="width:50% !important">
                         <span class="input-group-btn mr-5">
@@ -17,8 +17,8 @@
                                 <span class="fas fa-search"></span>
                             </button>
                         </span>
-                            <input type="text" class="form-control mr-2" name="term"      @if(isset($_GET['term'])) value="{{ $_GET['term']}}" @endif placeholder="جستجو بر اساس شماره سوال" id="term">
-                            <a href="{{ route('tashih') }}" >
+                            <input type="text" class="form-control mr-2" name="term"      @if(isset($_GET['term'])) value="{{ $_GET['term']}}" @endif placeholder="جستجو بر اساس کد دانش اموز، نام و ..." id="term">
+                            <a href="{{ route('tashihTaed') }}" >
                             <span class="input-group-btn">
                                 <button class="btn btn-danger" type="button" title="Refresh page">
                                     <span class="fas fa-sync-alt"></span>
@@ -40,7 +40,7 @@
                 <th>کد دانش آموز</th>
                 <th>درس</th>
                 <th>شماره سوال</th>
-                <th>ویرایش</th>
+                <th>مشاهده</th>
             </tr>
             @php $counter = 1 ; @endphp
             @foreach($data as $item)
@@ -50,7 +50,7 @@
                     <td>{{$item->StCode}}</td>
                     <td>{{$item->Title}}</td>
                     <td>{{$item->QNumber}}</td>
-                    <td><a href="{{route('tashihEdit', [$item->StudentID,$item->LessonID,$item->QNumber])}}" class=" text-decoration-none"> <i class="fas fa-edit"></i></a></td>
+                    <td><a href="{{route('tashihTaedEdit', [$item->StudentID,$item->LessonID,$item->QNumber])}}" class=" text-decoration-none"> <i class="fas fa-edit"></i></a></td>
                 </tr>
             @endforeach
 
@@ -69,7 +69,7 @@
             Swal.fire({
                 icon: "success",
                 title: 'انجام شد',
-                text: "کاربر با موفقیت ویرایش شد.",
+                text: "عملیات با موفقیت انجام شد.",
                 confirmButtonText: "تایید",
             })
         </script>

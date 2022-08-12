@@ -22,6 +22,10 @@
             <span class="icon"><i class="fas fa-users"></i></span>
             مصححین
         </a>
+        <a href="{{route('comiteRaes.index')}}" class="icon-a @if(str_contains(url()->current(),'admin/comiteRaes')) is-active  @endif">
+            <span class="icon"><i class="fas fa-users"></i></span>
+            روسای کمیته
+        </a>
         <!--a href="" class="icon-a">
             <span class="icon"><i class="fas fa-users"></i></span>
             پروفایل
@@ -44,9 +48,16 @@
         </a>
     @endif
     @if(auth()->user()->Role == config('constants.Role.MOSAHEH'))
-        <a href="{{route('tashih')}}" class="icon-a @if(str_contains(url()->current(),'admin/student')) is-active  @endif">
+        <a href="{{route('tashih')}}" class="icon-a @if(str_contains(url()->current(),'admin/tashih')) is-active  @endif">
             <span class="icon"><i class="fas fa-school"></i></span>
             تصحیح
+        </a>
+    @endif
+
+    @if(auth()->user()->Role == config('constants.Role.NAZER'))
+        <a href="{{route('tashihTaed')}}" class="icon-a @if(str_contains(url()->current(),'admin/tashihTaed')) is-active  @endif">
+            <span class="icon"><i class="fas fa-school"></i></span>
+            تایید تصحیح
         </a>
     @endif
 
