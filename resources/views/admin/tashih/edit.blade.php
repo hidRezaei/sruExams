@@ -35,6 +35,11 @@
         <p class="text-danger my-2">{{$message}}</p>
         @enderror
 
+        @if($data->taedTashih)
+            <div class="alert alert-danger " role="alert">
+                <span><h5><b>اطلاعات ثبت شده تایید شده است و امکان ویرایش وجود ندارد</b></h5></span>
+            </div>
+        @endif
         <div class="form-container">
             <div class="form-group-row row" >
                 <div class="form-group-cell col">
@@ -168,7 +173,11 @@
 
             <div class="form-group-row" style="text-align: left">
                 <div class="form-group-cell">
-                    {!! Form::submit('ثبت اطلاعات',['class'=>'admin-panel-btn btn-green']) !!}
+                    @if($data->taedTashih)
+                        {!! Form::submit('ثبت اطلاعات',['class'=>'admin-panel-btn btn-green','style'=>'background-color:#ccc; !important;color:#000 !important','disabled']) !!}
+                    @else
+                        {!! Form::submit('ثبت اطلاعات',['class'=>'admin-panel-btn btn-green']) !!}
+                    @endif
                 </div>
                 <div class="form-group-cell">
                     <a href="{{route('tashih')}}" ><button type="button" class="admin-panel-btn btn-blue" style="float:left">بازگشت به لیست</button></a>
@@ -187,7 +196,7 @@
             Swal.fire({
                 icon: "success",
                 title: 'انجام شد',
-                text: "کاربر با موفقیت ویرایش شد.",
+                text: "اطلاعات با موفقیت ویرایش شد.",
                 confirmButtonText: "تایید",
             })
         </script>

@@ -143,6 +143,7 @@ class tashihController extends Controller
         $data->Description='';
         $data->OldDataID=-1;
         $data->Mark = null;
+        $data->taedTashih = false ;
             //dd(auth()->id());
         if($oldTashihData = DB::select('select *  from Tashih
                                   where Tashih.DorehID = ?
@@ -155,6 +156,11 @@ class tashihController extends Controller
             $data->OldDataID = $oldTashihData[0]->id;
             $data->Mark = $oldTashihData[0]->Mark;
             $data->Description=$oldTashihData[0]->Description;
+        }
+        //------------------------------------------------
+        if($tashihTaedData = DB::select('select *  from TashihTaed where TashihID = ?' , [$data->OldDataID]))
+        {
+            $data->taedTashih = true;
         }
         //------------------------------------------------
         $data->otherMosahehMark= null;

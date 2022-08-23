@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 
-class tashihTaedController extends Controller
+class tashihStatusController extends Controller
 {
     public function index(Request $request)
     {
@@ -35,13 +35,13 @@ class tashihTaedController extends Controller
                                   where
                                     Tashih.DorehID = ?
                                     and Tashih.StepID = ?
-                                    and EXISTS(Select * From ComiteRaesLessons Where ComiteRaesLessons.DorehID = Tashih.DorehID AND ComiteRaesLessons.StepID = Tashih.StepID AND ComiteRaesLessons.LessonID = Tashih.LessonID AND ComiteRaesLessons.UserID=?) '. $searchSTR .' Order By Students.id,QNumber ', [$did,$sid,auth()->id()]);
+                                    and EXISTS(Select * From ComiteRaesLessons Where ComiteRaesLessons.DorehID = Tashih.DorehID AND ComiteRaesLessons.StepID = Tashih.StepID AND ComiteRaesLessons.LessonID = Tashih.LessonID) '. $searchSTR .' Order By Students.id,QNumber ', [$did,$sid]);
 
         $data = $this->arrayPaginator($data, $request);
 
-        return view('admin.tashihTaed.index')->with('data', $data);
-    }
+        return view('admin.tashihStatus.index')->with('data', $data);
 
+    }
     public function arrayPaginator($array, $request)
     {
         $page = $request->input('page',1);
@@ -52,7 +52,7 @@ class tashihTaedController extends Controller
             ['path' => $request->url(), 'query' => $request->query()]);
     }
 
-    public function edit($stid,$lid,$qid)
+    public function view($stid,$lid,$qid)
     {
         //$data = Student::findOrFail($id);
 
@@ -62,54 +62,61 @@ class tashihTaedController extends Controller
         $sid = $activeDorehInfo->StepID ;
 
         $markData = DB::select('select Tashih.id,Students.id AS StudentID,Students.CandidID,Students.FName+\' \'+Students.LName+N\' - کد \'+ CAST(Students.CandidID AS NVARCHAR) AS StName,\'-\' AS StCode,Tashih.LessonID,Lessons.Title+N\' - سوال \'+CAST(Tashih.QNumber AS NVARCHAR) AS Title,Tashih.QNumber,
-                                    Tashih.DorehID,Tashih.StepID,Tashih.Mark,users.name+\' \'+users.lname AS Name,Tashih.Description,Tashih.created_at,Tashih.updated_at  from Tashih
+                                    Tashih.DorehID,Tashih.StepID,TashihTaed.Status,TashihTaed.Description,TashihTaed.created_at  from Tashih
                                   inner join Students on Students.id = Tashih.StudentID
                                   inner join Lessons on Lessons.id = Tashih.LessonID
-                                  INNER JOIN users ON users.ID = Tashih.MosahehID
+                                  left join TashihTaed on TashihTaed.TashihID = Tashih.id
                                   where
                                     Tashih.DorehID = ?
                                     and Tashih.StepID = ?
                                     and Tashih.StudentID = ?
                                     and Tashih.LessonID = ?
-                                    and Tashih.QNumber = ?
-                                    and EXISTS(Select * From ComiteRaesLessons Where ComiteRaesLessons.DorehID = Tashih.DorehID AND ComiteRaesLessons.StepID = Tashih.StepID AND ComiteRaesLessons.LessonID = Tashih.LessonID AND ComiteRaesLessons.UserID=?)' , [$did,$sid,$stid,$lid,$qid,auth()->id()]);
+                                    and Tashih.QNumber = ?' , [$did,$sid,$stid,$lid,$qid]);
+
+        //dd($markData);
+        $data = $markData[0];
+
+        $data->TaedDate = verta($markData[0]->created_at)->format('H:i  -  Y/m/d ') ;
+
+        //-------------------------------------------------
+        $mosahehMarksData = DB::select('select Tashih.id,Tashih.Mark,users.name+\' \'+users.lname AS Name,Tashih.Description,Tashih.created_at,Tashih.updated_at  from Tashih
+                                        INNER JOIN users ON users.ID = Tashih.MosahehID
+                                        where
+                                            Tashih.DorehID = ?
+                                            and Tashih.StepID = ?
+                                            and Tashih.StudentID = ?
+                                            and Tashih.LessonID = ?
+                                            and Tashih.QNumber = ?' , [$did,$sid,$stid,$lid,$qid]);
 
         $tashihIDArr = array();
         $marksTanaghoz = false;
 
-        if(count($markData)<2)
+        if(count($mosahehMarksData)<2)
             $marksTanaghoz = true;
 
-        foreach($markData AS $item)
+        foreach($mosahehMarksData AS $item)
         {
             $tashihIDArr[] = $item->id;
-            if($item->Mark != $markData[0]->Mark )
+            if($item->Mark != $mosahehMarksData[0]->Mark )
                 $marksTanaghoz = true;
+
+            $data->markLogs[$item->id]= null;
+            //dd(auth()->id());
+            if($markLogs = DB::select('select * from TashihLog  where TashihID = ?' , [$item->id]))
+            {
+                $data->markLogs[$item->id] = $markLogs ;
+            }
         }
 
-        $data = $markData[0];
-        $data->otherMosahehMark = $markData ;
+        $data->otherMosahehMark = $mosahehMarksData ;
         $data->marksTanaghoz = $marksTanaghoz;
         $data->TashihIDArr = json_encode($tashihIDArr);
-        //-------------------------------------------------
-
-        $data->Status = false;
-        $data->TaedDate = '';
-        $data->Description='';
-        if($oldTashihTaedData = DB::select('select *  from TashihTaed
-                                  where TashihID in ('. implode(',',$tashihIDArr) .')
-                                    and ComiteRaesID = ?' , [auth()->id() ]))
-        {
-            $data->Status = $oldTashihTaedData[0]->Status;
-            $data->TaedDate = verta($oldTashihTaedData[0]->created_at)->format('H:i  -  Y/m/d ') ;
-            $data->Description=$oldTashihTaedData[0]->Description;
-        }
         //-------------------------------------------------
         $examClass = new \App\Models\Exam();
         $answerPagesData = $examClass->getAnswerPageCount($activeDorehInfo->DorehTitle,$activeDorehInfo->StepTitle,$data->CandidID,$data->LessonID,$data->QNumber);
         $data->answerPagesData = $answerPagesData;
         //dd($data);
-        return view('admin.tashihTaed.edit', compact('data'));
+        return view('admin.tashihStatus.view', compact('data'));
     }
 
     public function getAnswerImage($stCode,$lid,$QN,$PN)
@@ -122,23 +129,6 @@ class tashihTaedController extends Controller
         //dd($activeDorehInfo);
 
         return $examClass->displayExamPageImage($did,$sid,$stCode,$lid,$QN, $PN);
-    }
-
-
-    public function store_update(Request $request)
-    {
-        //dd($request);
-        $tashihIDArr = json_decode($request->hidTashihIDArr);
-        if($tashihIDArr)
-            foreach ($tashihIDArr AS $tashihID)
-            {
-                DB::table('TashihTaed')->where('TashihID', $tashihID)->where('ComiteRaesID', $request->ComiteRaesID)->delete();
-                if($request->Status == "on")
-                    DB::insert('insert into TashihTaed (TashihID,ComiteRaesID,Status, Description,created_at) values (?,?,?,?,?)', [$tashihID,$request->ComiteRaesID,true,$request->Description,date('Y-m-d H:i:s')]);
-            }
-        //------------------------------------------------------
-        $request->session()->flash('update');
-        return redirect()->route('tashihTaedEdit',['sid'=> $request->StudentID,'lid'=>$request->LessonID ,'qid'=>$request->QNumber]);
     }
 
 

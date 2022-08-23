@@ -70,5 +70,18 @@ function f1(){
         $( "#txtToggle" ).html('- پنهان کردن');
     else
         $( "#txtToggle" ).html('+ مشاهده');
+}
 
+function showMarkLog(contentID){
+
+    $("#markLogs_"+contentID).toggle();
+    /*if ( display2 === true ) {
+        $( "#txtToggle" ).Text('****');
+    } else if ( display2 === false ) {
+        $( "#txtToggle" ).Text('---');
+    }*/
+    if($('#markLogs_'+contentID).is(':visible'))
+        $("#txtToggle_"+ contentID+"").html('- پنهان');
+    else
+        $("#txtToggle_"+ contentID ).html('+ مشاهده');
 }

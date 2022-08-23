@@ -30,6 +30,12 @@
             <span class="icon"><i class="fas fa-users"></i></span>
             پروفایل
         </a-->
+        @if(auth()->user()->Role == config('constants.Role.ADMIN'))
+            <a href="{{route('tashihStatus')}}" class="icon-a @if(str_contains(url()->current(),'admin/tashihSt')) is-active  @endif">
+                <span class="icon"><i class="fas fa-school"></i></span>
+                وضعیت تصحیح
+            </a>
+        @endif
         <a href="{{route('admin.message.index',/*auth()->id()*/-10001)}}" class="icon-a @if(str_contains(url()->current(),'message')) is-active  @endif">
             <span class="icon"><i class="fas fa-comment-alt"></i></span>
             اعتراض ها
