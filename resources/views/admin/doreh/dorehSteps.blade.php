@@ -5,62 +5,14 @@
             <span><h4><b>مراحل دوره</b></h4></span>
         </div>
         <div class="dynamic-content">
-            {!! Form::open(['route'=>array('dorehStepStore',request()->did), 'method'=>'post']) !!}
-            {!! Form::hidden('DorehID', request()->did) !!}
-            @error('DorehID')
-            <p class="text-danger my-2">{{$message}}</p>
-            @enderror
-
-            <div class="form-container">
-                <div class="form-group-row row" >
-                    <div class="form-group-cell col">
-                        {!! Form::label('Status', 'فعال',['style'=>'width:5%;display:inline']) !!}
-                        {!! Form::checkbox('Status',null,null,['style'=>'width:5%']) !!}
-                    </div>
-                    <div class="form-group-cell col">
-                    </div>
-                </div>
-
-                <div class="form-group-row row" >
-                    <div class="form-group-cell col">
-                        {!! Form::text('Title',null ,['placeholder'=>'عنوان دوره']) !!}
-                        @error('Title')
-                        <p class="text-danger my-2">{{$message}}</p>
-                        @enderror
-                    </div>
-                    <div class="form-group-cell col">
-                    </div>
-                </div>
-
-                <div class="form-group-row row" >
-                    <div class="form-group-cell col">
-                        {!! Form::textarea('Description',null ,['placeholder'=>'توضیحات']) !!}
-                        @error('Description')
-                        <p class="text-danger my-2">{{$message}}</p>
-                        @enderror
-                    </div>
-                    <div class="form-group-cell col">
-                    </div>
-                </div>
-
-                <div class="form-group-row" >
-                    <div class="form-group-cell">
-                        {!! Form::submit('ثبت مرحله جدید در دوره',['class'=>'admin-panel-btn btn-green']) !!}
-                    </div>
-                </div>
-            </div>
-
-            {!! Form::close() !!}
-
-
-
-        <hr/>
+        <a href="{{route('dorehStepCreate',request()->did)}}" ><button type="button" class="btn btn-primary btn-lg mb-3">دوره جدید</button></a>
         <table class="mb-5">
             <tbody>
             <tr>
-                <th>عنوان</th>
+                <th>عنوان مرحله</th>
                 <th>وضعیت</th>
-                <th>عملیات</th>
+                <!--th>عملیات</th-->
+                <th>ویرایش</th>
                 <th>حذف</th>
             </tr>
 
@@ -68,8 +20,8 @@
                 <tr>
                     <td>{{$step->Title}}</td>
                     <td><input class="form-check-input" type="checkbox" @if($step->Status)  {{'checked'}} @endif /></td>
-                    <td><a href="{{route('dorehStepLessons', ['did'=>request()->did,'sid'=>$step->id])}}" class="text-blue text-decoration-none">اختصاص درس به دوره</a></td>
-
+                    <!--td><a href="{{route('dorehStepLessons', ['did'=>request()->did,'sid'=>$step->id])}}" class="text-blue text-decoration-none">اختصاص درس به دوره</a></td-->
+                    <td><a href="{{route('dorehStepEdit', ['did'=>request()->did,'sid'=>$step->id] )}}" class=" text-decoration-none"> <i class="fas fa-edit"></i></a></td>
                     <td>
                         <a href="{{route('dorehStepDestroy',['sid'=>$step->id])}}" class="text-decoration-none text-danger" onclick="destroyMsg(event, {{$step->id}})">حذف</a>
                         <form action="{{route('dorehStepDestroy', ['sid'=>$step->id])}}" method="post" id="delete-msg-{{$step->id}}">
@@ -128,7 +80,7 @@
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
                 confirmButtonText: 'بله, مطمئن هستم!',
-                cancelButtonText: 'نه حذف نکن'
+                cancelButtonText: 'انصراف از حذف'
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.querySelector('#delete-msg-'+id).submit();

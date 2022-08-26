@@ -27,7 +27,7 @@ class dorehController extends Controller
         //dd($request);
         $request->validate([
             //'name'=>'required|string|max:255',
-            'Title'=> ['required','string','max:1500' ],
+            'Title'=> ['required','numeric' ],
             //'Subject2'=> ['integer'],
             //'role'=>'required|max:255'
         ]);
@@ -68,7 +68,7 @@ class dorehController extends Controller
         //dd($request);
         $request->validate([
             //'name'=>'required|string|max:255',
-            'Title' => ['required', 'string', 'max:1500'],
+            'Title'=> ['required','numeric' ],
             //'Subject2'=> ['integer'],
             //'role'=>'required|max:255'
         ]);
@@ -76,7 +76,7 @@ class dorehController extends Controller
         if ($request->Status == "on")
         {
             $status = 1;
-            Doreh::where('id','!=',0)->update(['Status' => 0]);
+            Doreh::where('id','!=',$id)->update(['Status' => 0]);
         }
 
         $elanat->update([
@@ -104,11 +104,16 @@ class dorehController extends Controller
         return view('admin.doreh.dorehSteps', compact('steps'));
     }
 
+    public function dorehStepCreate()
+    {
+        return view('admin.doreh.dorehStepCreate');
+    }
+
     public function dorehStepStore(Request $request)
     {
         //dd($request);
         $request->validate([
-            'Title'=> ['required','string','max:1500' ],
+            'Title'=> ['required','numeric' ],
             'DorehID'=> ['required','numeric','min:0','not_in:0' ],
         ]);
 
@@ -119,15 +124,56 @@ class dorehController extends Controller
            DorehStep::where('DorehID', $request->DorehID)
                 ->update(['Status' => 0]);
         }
-        DorehStep::create([
+
+        $sid = DorehStep::create([
             'DorehID'=>$request->DorehID,
             'Title'=>$request->Title ,
             'Description'=>$request->Description ,
             'Status'=>$status,
-        ]);
+        ])->id;
 
         $request->session()->flash('create');
-        return redirect()->back(); //->route('doreh.index');
+        return redirect()->route('dorehStepEdit', ['did'=>request()->DorehID,'sid'=>$sid]); //->back();
+
+    }
+
+    public function dorehStepEdit($did,$sid)
+    {
+        $data = DB::table('DorehSteps')->where('id', '=',$sid)->first();
+        //dd($data);
+        $data2 = DB::select('select Lessons.id,Lessons.Title,DorehStepLessons.LessonID,DorehStepLessons.QCount from Lessons  LEFT JOIN DorehStepLessons ON (Lessons.ID =DorehStepLessons.LessonID AND DorehID = ? and StepID = ?)  ', [$did,$sid]);
+
+        return view('admin.doreh.dorehStepEdit', compact('data','data2'));
+    }
+
+    public function dorehStepUpdate(Request $request)
+    {
+        //$data = DB::table('DorehSteps')->where('id', '=',$request->sid)->first();
+        //dd($request);
+        $request->validate([
+            'Title'=> ['required','numeric' ],
+            'DorehID'=> ['required','numeric','min:0','not_in:0' ],
+        ]);
+
+        $status = 0;
+        if($request->Status == "on")
+        {
+            $status = 1;
+            DorehStep::where('DorehID', $request->DorehID)->update(['Status' => 0]);
+        }
+
+        $answerView = 0 ;
+        $resultView = 0 ;
+        if($request->AnswerView == "on")
+            $answerView = 1 ;
+        if($request->ResultView == "on")
+            $resultView = 1 ;
+
+
+        DorehStep::where('id', $request->StepID)->update(['Title'=>$request->Title ,'Description'=>$request->Description ,'Status' => $status , 'AnswerView'=>$answerView , 'ResultView'=>$resultView]);
+
+        $request->session()->flash('update');
+        return redirect()->route('dorehStepEdit', ['did'=>request()->DorehID,'sid'=>request()->StepID]); //->back();
     }
 
     public function dorehStepDestroy($id)
@@ -137,14 +183,14 @@ class dorehController extends Controller
         return redirect()->back();
     }
     //---------------------------------------------------------------
-    public function getDorehStepLessons($did,$sid)
+   /* public function getDorehStepLessons($did,$sid)
     {
         //$data = Lesson::where('DorehID', '=',$did)->get();
         //$data = Lesson::all();
         $data = DB::select('select Lessons.id,Lessons.Title,DorehStepLessons.LessonID,DorehStepLessons.QCount from Lessons  LEFT JOIN DorehStepLessons ON (Lessons.ID =DorehStepLessons.LessonID AND DorehID = ? and StepID = ?)  ', [$did,$sid]);
         //dd($data);
         return view('admin.doreh.dorehStepLessons', compact('data'));
-    }
+    }*/
 
     public function dorehStepLessonsStore(Request $request,$did,$sid)
     {
@@ -156,7 +202,7 @@ class dorehController extends Controller
                DB::insert('insert into DorehStepLessons (DorehID, StepID,LessonID,QCount) values (?, ?,?,?)', [$did,$sid,$key, $request->QCount[$key]]);
             //echo $key.'*'.$value.'***'. $request->QCount[$key] .'<br/>';
 
-        $request->session()->flash('create');
+        $request->session()->flash('update');
         return redirect()->back(); //->route('doreh.index');*/
     }
 

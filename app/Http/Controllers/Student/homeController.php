@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 
 
+use App\Models\Doreh;
 use App\Models\Elanat;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -34,11 +35,30 @@ class homeController extends Controller
     public function getResultPageData()
     {
         $studentClass = new Student();
-        $compactData=array('validExams'=>$studentClass->getValidExams(),'validExamsForKaname'=>$studentClass->getValidExamsForKarname() /*,'questionNumber'=>$studentClass->getQuestionCount(1)  *//*, 'answerPages'=>getAnswerPagesOfQuestion()*/ );
-        //$data=array('questionNumber'=>$students, 'instructors'=>$instructors, 'instituitions'=>$instituitions);
-        //dd($compactData);
+        $dorehClass = new Doreh();
+        $activeDorehStepData = $dorehClass->getActiveDorehStep();
+
+        if( $activeDorehStepData)
+            $compactData=array('dorehTitle'=> $activeDorehStepData->DorehTitle , 'stepTitle'=>$activeDorehStepData->StepTitle  ,'answerViewStatus'=>$activeDorehStepData->AnswerView  ,'validExams'=>$studentClass->getValidExams()/*,'validExamsForKaname'=>$studentClass->getValidExamsForKarname()*/ /*,'questionNumber'=>$studentClass->getQuestionCount(1)  *//*, 'answerPages'=>getAnswerPagesOfQuestion()*/ );
+        else
+            $compactData=array('dorehTitle'=> false , 'stepTitle'=>false,'karnameViewStatus'=>false,'validExams'=> array()/*,'questionNumber'=>$studentClass->getQuestionCount(1)  *//*, 'answerPages'=>getAnswerPagesOfQuestion()*/ );
+
         //return view('admin.student.index', compact($compactData));
         return view('student.result')->with($compactData);
+    }
+
+    public function getKarnameData()
+    {
+        $studentClass = new Student();
+        $dorehClass = new Doreh();
+        $activeDorehStepData = $dorehClass->getActiveDorehStep();
+
+        if( $activeDorehStepData)
+            $compactData=array('dorehTitle'=> $activeDorehStepData->DorehTitle , 'stepTitle'=>$activeDorehStepData->StepTitle  ,'karnameViewStatus'=>$activeDorehStepData->ResultView  ,'validExamsForKaname'=>$studentClass->getValidExamsForKarname() /*,'questionNumber'=>$studentClass->getQuestionCount(1)  *//*, 'answerPages'=>getAnswerPagesOfQuestion()*/ );
+        else
+            $compactData=array('dorehTitle'=> false , 'stepTitle'=>false,'karnameViewStatus'=>false,'validExamsForKaname'=> array());
+
+        return view('student.karname')->with($compactData);
     }
 
     public function displayImage($lessonNumber,$QN, $filename)

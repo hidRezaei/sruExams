@@ -5,6 +5,9 @@
         <div class="alert alert-success " role="alert">
             <span><h4><b>ویرایش دوره</b></h4></span>
         </div>
+        <div class="alert alert-secondary  " role="alert">
+            <span style="font-size: 14px">عنوان دوره و مراحل دوره باید عددی باشد، از این عناوین برای بارگزاری و دسترسی به فایلهای پاسخنامه استفاده می شود.</span>
+        </div>
         {!! Form::model($doreh,['route'=>['doreh.update',['did'=>$doreh->id]], 'method'=>'put']) !!}
         <div class="form-container">
             <div class="form-group-row row" >

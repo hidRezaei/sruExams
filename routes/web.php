@@ -29,7 +29,10 @@ Route::resource('admin.elanat',\App\Http\Controllers\Administrator\elanatControl
 Route::middleware(['auth'])->resource('/admin/doreh',\App\Http\Controllers\Administrator\dorehController::class)->parameters(['doreh'=>'did']);
 
 Route::get('/admin/doreh/{did}/dorehSteps',[\App\Http\Controllers\Administrator\dorehController::class,'getdorehSteps'])->middleware(['auth'])->name('dorehSteps');
+Route::get('/admin/doreh/{did}/dorehStepCreate',[\App\Http\Controllers\Administrator\dorehController::class,'dorehStepCreate'])->middleware(['auth'])->name('dorehStepCreate');
 Route::post('/admin/doreh/{did}/dorehSteps',[\App\Http\Controllers\Administrator\dorehController::class,'dorehStepStore'])->middleware(['auth'])->name('dorehStepStore');
+Route::get('/admin/doreh/{did}/dorehStepEdit/{sid}',[\App\Http\Controllers\Administrator\dorehController::class,'dorehStepEdit'])->middleware(['auth'])->name('dorehStepEdit');
+Route::put('/admin/doreh/{sid}/dorehStepUpdate',[\App\Http\Controllers\Administrator\dorehController::class,'dorehStepUpdate'])->middleware(['auth'])->name('dorehStepUpdate');
 Route::delete('/admin/doreh/{sid}/dorehSteps',[\App\Http\Controllers\Administrator\dorehController::class,'dorehStepDestroy'])->middleware(['auth'])->name('dorehStepDestroy');
 
 Route::get('/admin/doreh/{did}/step/{sid}/dorehStepLessons',[\App\Http\Controllers\Administrator\dorehController::class,'getDorehStepLessons'])->middleware(['auth'])->name('dorehStepLessons');
@@ -59,7 +62,8 @@ Route::post('/setting',[\App\Http\Controllers\Administrator\settingController::c
 
 Route::namespace('Student')->prefix('student')->group(function (){
     Route::get('/',[\App\Http\Controllers\Student\homeController::class,'getHomeData'])->middleware(['auth:student'])->name('student.home');
-    Route::get('/result',[\App\Http\Controllers\Student\homeController::class,'getResultPageData'])->middleware(['auth:student'])->name('student.result');
+    Route::get('/answerPage',[\App\Http\Controllers\Student\homeController::class,'getResultPageData'])->middleware(['auth:student'])->name('student.answerPage');
+    Route::get('/karname',[\App\Http\Controllers\Student\homeController::class,'getKarnameData'])->middleware(['auth:student'])->name('student.karnamePage');
 
     Route::get('/profile/{id}',[\App\Http\Controllers\Student\profileController::class,'getStudentData'])->middleware(['auth:student'])->name('student.profile');
     Route::post('/profile/{id}',[\App\Http\Controllers\Student\profileController::class,'updateStudentProfile'])->middleware(['auth:student'])->name('student.updateProfile');

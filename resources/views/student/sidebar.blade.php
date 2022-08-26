@@ -9,9 +9,13 @@
         <span class="icon"><i class="fas fa-home"></i></span>
         خانه
     </a>
-    <a href="{{route('student.result')}}" class="icon-a">
+    <a href="{{route('student.answerPage')}}" class="icon-a">
         <span class="icon"><i class="fas fa-users"></i></span>
-        مشاهده پاسخ آزمون
+        مشاهده پاسخنامه
+    </a>
+    <a href="{{route('student.karnamePage')}}" class="icon-a">
+        <span class="icon"><i class="fas fa-users"></i></span>
+        مشاهده کارنامه
     </a>
     <a href="{{route('student.profile',auth('student')->id())}}" class="icon-a">
         <span class="icon"><i class="fas fa-users"></i></span>

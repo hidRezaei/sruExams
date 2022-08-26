@@ -34,9 +34,10 @@ class Doreh extends Model
 
     public function getActiveDorehStep()
     {
-        $result = DB::select('select DorehID,Doreh.Title AS DorehTitle,DorehSteps.ID As StepID,DorehSteps.Title AS StepTitle from Doreh INNER JOIN DorehSteps ON (Doreh.ID = DorehSteps.DorehID AND DorehSteps.Status=1) where Doreh.Status = 1');
-        //dd($result);
-        return $result[0];
+        if($result = DB::select('select DorehID,Doreh.Title AS DorehTitle,DorehSteps.ID As StepID,DorehSteps.Title AS StepTitle,AnswerView,ResultView from Doreh INNER JOIN DorehSteps ON (Doreh.ID = DorehSteps.DorehID AND DorehSteps.Status=1) where Doreh.Status = 1'))
+            return $result[0];
+
+        return array();
     }
 
 }
