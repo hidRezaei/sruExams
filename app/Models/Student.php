@@ -36,7 +36,7 @@ class Student extends Authenticatable
         return '';//verta($this->created_at)->format('Y/m/d');
     }
 
-    public function getValidExams()
+    public function getValidExams(string $dorehSTRLoc,string $stepSTRLoc)
     {
         /*$path = storage_path().'\app\resultFiles2\100041\1\1.jpg';
         echo ($path);
@@ -50,7 +50,7 @@ class Student extends Authenticatable
         $resultArr = array();
         for( $k=1;$k<=18;$k++)
         {
-            $path = 'resultFiles/1401/M2/'. $k .'/' . auth('student')->user()->CandidID ;
+            $path = 'resultFiles/'. $dorehSTRLoc .'/M'. $stepSTRLoc .'/'. $k .'/' . auth('student')->user()->CandidID ;
             if(Storage::exists($path))
                 $resultArr[] = $k;
         }
@@ -58,12 +58,12 @@ class Student extends Authenticatable
         return ($resultArr);
     }
 
-    public function getValidExamsForKarname()
+    public function getValidExamsForKarname(string $dorehSTRLoc,string $stepSTRLoc)
     {
         $resultArr = array();
         for( $k=1;$k<=15;$k++)
         {
-            $path = 'resultFiles/1401/M2/20/'. $k .'/' . auth('student')->user()->CandidID .'.pdf';
+            $path = 'resultFiles/'. $dorehSTRLoc .'/M'. $stepSTRLoc .'/20/'. $k .'/' . auth('student')->user()->CandidID .'.pdf';
             if(Storage::exists($path))
                 $resultArr[] = $k;
         }
@@ -71,7 +71,7 @@ class Student extends Authenticatable
     }
 
 
-    public function getQuestionCount($lessonNumber)
+    public function getQuestionCount($lessonNumber,$dorehSTRLoc,$stepSTRLoc)
     {
 
         /*$path = storage_path().'\app\resultFiles2\100041\1\1.jpg';
@@ -83,9 +83,7 @@ class Student extends Authenticatable
         else
             dd(2);*/
 
-
-
-        $path = 'resultFiles/1401/M2/' .$lessonNumber.'/' . auth('student')->user()->CandidID ;
+        $path = 'resultFiles/'. $dorehSTRLoc .'/M'. $stepSTRLoc .'/' .$lessonNumber.'/' . auth('student')->user()->CandidID ;
         //$path = 'resultFiles/100041' ;
         $directories = Storage::Directories($path);
         //dd($directories);
@@ -98,10 +96,10 @@ class Student extends Authenticatable
         return ($resultArr);
     }
 
-    public function getAnswerPagesOfQuestion($lessonNumber,$QuestionNumber)
+    public function getAnswerPagesOfQuestion($lessonNumber,$QuestionNumber,$dorehSTRLoc,$stepSTRLoc)
     {
         //$lessonNumber=1;$QuestionNumber=2;
-        $path = 'resultFiles/1401/M2/'. $lessonNumber .'/' . auth('student')->user()->CandidID .'/'. $QuestionNumber;
+        $path = 'resultFiles/'. $dorehSTRLoc .'/M'. $stepSTRLoc .'/'. $lessonNumber .'/' . auth('student')->user()->CandidID .'/'. $QuestionNumber;
         $AnswerPages = Storage::Files($path);
         ////dd($AnswerPages);
         $resultArr = array();
@@ -114,7 +112,7 @@ class Student extends Authenticatable
     }
 
 
-    public function displayImage22($lessonNumber,$QN, $filename)
+    public function displayImage22($lessonNumber,$QN, $filename,$dorehSTRLoc,$stepSTRLoc)
     {
         //return '***';
         //$dd2=  storage::download('resultFiles/100041/1/' . $filename);
@@ -122,7 +120,7 @@ class Student extends Authenticatable
         //$path=  storage::get('resultFiles/100041/1/' . $filename);
 
         //$path = storage_path().'\app\resultFiles2\100041\1\1.jpg';
-        $path = storage_path().'\app\resultFiles\1401\M2\\'. $lessonNumber .'\\' . auth('student')->user()->CandidID . '/' . $QN . '/' . $filename;
+        $path = storage_path().'\app\resultFiles\\'. $dorehSTRLoc .'\M'. $stepSTRLoc .'\\'. $lessonNumber .'\\' . auth('student')->user()->CandidID . '/' . $QN . '/' . $filename;
         //dd($path);
         if (!File::exists($path)) {
 

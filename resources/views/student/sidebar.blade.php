@@ -9,7 +9,19 @@
         <span class="icon"><i class="fas fa-home"></i></span>
         خانه
     </a>
-    <a href="{{route('student.answerPage')}}" class="icon-a">
+    @php
+        $dorehClass = new \App\Models\Doreh();
+        $dLoc = '1';
+        $sLoc = '1';
+        $answerView = 0;
+        if($activeDorehInfo = $dorehClass->getActiveDorehStep())
+        {
+            $dLoc = $activeDorehInfo->DorehTitle;
+            $sLoc = /*'M'.*/$activeDorehInfo->StepTitle;
+            $answerView = $activeDorehInfo->AnswerView ;
+        }
+    @endphp
+    <a href="{{route('student.answerPage',['dl'=>$dLoc,'sl'=>$sLoc,'viewST'=>$answerView])}}" class="icon-a">
         <span class="icon"><i class="fas fa-users"></i></span>
         مشاهده پاسخنامه
     </a>

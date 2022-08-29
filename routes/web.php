@@ -62,7 +62,7 @@ Route::post('/setting',[\App\Http\Controllers\Administrator\settingController::c
 
 Route::namespace('Student')->prefix('student')->group(function (){
     Route::get('/',[\App\Http\Controllers\Student\homeController::class,'getHomeData'])->middleware(['auth:student'])->name('student.home');
-    Route::get('/answerPage',[\App\Http\Controllers\Student\homeController::class,'getResultPageData'])->middleware(['auth:student'])->name('student.answerPage');
+    Route::get('/answerPage/{dl}/{sl}/{viewST}',[\App\Http\Controllers\Student\homeController::class,'getResultPageData'])->middleware(['auth:student'])->name('student.answerPage');
     Route::get('/karname',[\App\Http\Controllers\Student\homeController::class,'getKarnameData'])->middleware(['auth:student'])->name('student.karnamePage');
 
     Route::get('/profile/{id}',[\App\Http\Controllers\Student\profileController::class,'getStudentData'])->middleware(['auth:student'])->name('student.profile');
@@ -84,7 +84,7 @@ Route::resource('student.message',messageController::class)->parameters(['studen
 Route::get('/getAns2/{stcode}/{lessonNumber}/{QN}/{filename}',[\App\Http\Controllers\Administrator\tashihController::class, 'getAnswerImage'])->middleware(['auth'])->name('displayAnswerImage');
 
 
-Route::get('/getAns/{lessonNumber}/{QN}/{filename}',[\App\Http\Controllers\Student\homeController::class, 'displayImage'])->middleware(['auth:student'])->name('image.displayImage');
+Route::get('/getAns/{lessonNumber}/{QN}/{filename}/{dl}/{sl}',[\App\Http\Controllers\Student\homeController::class, 'displayImage'])->middleware(['auth:student'])->name('image.displayImage');
 Route::get('/getKarname/{lessonNumber}',[\App\Http\Controllers\Student\homeController::class, 'getKarname'])->middleware(['auth:student'])->name('student.karname');
 
 Route::get('/stlogin', function () { return view('student_login');})->name('stlogin');

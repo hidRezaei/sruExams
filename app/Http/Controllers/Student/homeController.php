@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Doreh;
 use App\Models\Elanat;
+use App\Models\Exam;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -32,36 +33,36 @@ class homeController extends Controller
         return view('student.home',compact('elanats'));
     }
 
-    public function getResultPageData()
+    public function getResultPageData($dorehLoc,$stepLoc,$viewStatus)
     {
         $studentClass = new Student();
         $dorehClass = new Doreh();
-        $activeDorehStepData = $dorehClass->getActiveDorehStep();
+        //$activeDorehStepData = $dorehClass->getActiveDorehStep();
 
-        if( $activeDorehStepData)
-            $compactData=array('dorehTitle'=> $activeDorehStepData->DorehTitle , 'stepTitle'=>$activeDorehStepData->StepTitle  ,'answerViewStatus'=>$activeDorehStepData->AnswerView  ,'validExams'=>$studentClass->getValidExams()/*,'validExamsForKaname'=>$studentClass->getValidExamsForKarname()*/ /*,'questionNumber'=>$studentClass->getQuestionCount(1)  *//*, 'answerPages'=>getAnswerPagesOfQuestion()*/ );
-        else
-            $compactData=array('dorehTitle'=> false , 'stepTitle'=>false,'karnameViewStatus'=>false,'validExams'=> array()/*,'questionNumber'=>$studentClass->getQuestionCount(1)  *//*, 'answerPages'=>getAnswerPagesOfQuestion()*/ );
+        //if( $activeDorehStepData)
+            $compactData=array('dorehTitle'=>$dorehLoc /*$activeDorehStepData->DorehTitle*/ , 'stepTitle'=>$stepLoc/*$activeDorehStepData->StepTitle */ ,'answerViewStatus'=>$viewStatus/*$activeDorehStepData->AnswerView */ ,'validExams'=>$studentClass->getValidExams($dorehLoc,$stepLoc),'oldExams'=>$dorehClass->getAllDorehStep()/*,'validExamsForKaname'=>$studentClass->getValidExamsForKarname()*/ /*,'questionNumber'=>$studentClass->getQuestionCount(1)  *//*, 'answerPages'=>getAnswerPagesOfQuestion()*/ );
+        /*else
+            $compactData=array('dorehTitle'=> false , 'stepTitle'=>false,'karnameViewStatus'=>false,'validExams'=> array(),'oldExams'=> array()/*,'questionNumber'=>$studentClass->getQuestionCount(1)  *//*, 'answerPages'=>getAnswerPagesOfQuestion()*/ /*);*/
 
         //return view('admin.student.index', compact($compactData));
         return view('student.result')->with($compactData);
     }
 
-    public function getKarnameData()
+    public function getKarnameData($dorehLoc,$stepLoc)
     {
         $studentClass = new Student();
         $dorehClass = new Doreh();
         $activeDorehStepData = $dorehClass->getActiveDorehStep();
 
         if( $activeDorehStepData)
-            $compactData=array('dorehTitle'=> $activeDorehStepData->DorehTitle , 'stepTitle'=>$activeDorehStepData->StepTitle  ,'karnameViewStatus'=>$activeDorehStepData->ResultView  ,'validExamsForKaname'=>$studentClass->getValidExamsForKarname() /*,'questionNumber'=>$studentClass->getQuestionCount(1)  *//*, 'answerPages'=>getAnswerPagesOfQuestion()*/ );
+            $compactData=array('dorehTitle'=> $activeDorehStepData->DorehTitle , 'stepTitle'=>$activeDorehStepData->StepTitle  ,'karnameViewStatus'=>$activeDorehStepData->ResultView  ,'validExamsForKaname'=>$studentClass->getValidExamsForKarname($dorehLoc,$stepLoc) /*,'questionNumber'=>$studentClass->getQuestionCount(1)  *//*, 'answerPages'=>getAnswerPagesOfQuestion()*/ );
         else
             $compactData=array('dorehTitle'=> false , 'stepTitle'=>false,'karnameViewStatus'=>false,'validExamsForKaname'=> array());
 
         return view('student.karname')->with($compactData);
     }
 
-    public function displayImage($lessonNumber,$QN, $filename)
+    public function displayImage($lessonNumber,$QN, $filename,$dorehLoc,$stepLoc)
     {
         /*
         //return '***';
@@ -87,13 +88,13 @@ class homeController extends Controller
         return $response;*/
 
         $studentClass = new Student();
-        return $studentClass->displayImage22($lessonNumber,$QN,$filename);
+        return $studentClass->displayImage22($lessonNumber,$QN,$filename,$dorehLoc,$stepLoc);
     }
 
 
-    public function getKarname($lessonNumber)
+    public function getKarname($lessonNumber,$dorehLoc,$stepLoc)
     {
-        $path = 'resultFiles/1401/M2/20/'. $lessonNumber .'/' . auth('student')->user()->CandidID.'.pdf' ;
+        $path = 'resultFiles/'. $dorehLoc .'/M'. $stepLoc .'/20/'. $lessonNumber .'/' . auth('student')->user()->CandidID.'.pdf' ;
         //dd($path);
         if (!storage::exists($path)) {
 
